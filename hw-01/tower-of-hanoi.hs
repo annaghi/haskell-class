@@ -28,4 +28,4 @@ hanoiN n (x:y:z:rest) =
     hanoiN (n - k) (x:y:rest)
     ++
     hanoiN k (z:y:x:rest)
-    where k = n - round (sqrt (fromIntegral (2 * n + 1))) + 1
+        where k = n - round (sqrt (fromIntegral (2 * n + 1))) + 1
