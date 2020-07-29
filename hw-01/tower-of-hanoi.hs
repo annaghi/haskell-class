@@ -21,7 +21,7 @@ hanoi4 n k a b c d = hanoi4 (n - k) k a c d b ++ hanoi k a c d ++ hanoi4 (n - k)
 
 -- Destination is the second peg, works when the number of the pegs is greater than 3
 hanoiN :: Int -> [Int] -> [(Int, Int)]
-hanoiN 1 (x:y:rest) = [(x, y)]
+hanoiN 1 (x:y:_) = [(x, y)]
 hanoiN n (x:y:z:rest) =
     hanoiN k (x:z:y:rest)
     ++

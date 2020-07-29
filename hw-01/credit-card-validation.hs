@@ -10,7 +10,7 @@ validate xs =
         xs' = clean xs
     in
     if length xs == length xs'
-        then output $ checkIfZero $ remainderBy10 $ sumDigits $ doubleEverySecond xs'
+        then output $ checkIfZero $ remainderBy10 $ sumDigits $ doubleEveryOther xs'
         else "The input is invalid"
 
 
@@ -19,15 +19,9 @@ clean xs =
     [ digitToInt x | x <- xs, x `elem` ['0'..'9'] ]
 
 
-doubleEverySecond :: [Int] -> [Int]
-doubleEverySecond xs =
-    reverse $ [ doubleIfIndexIsOdd i x | (i, x) <- zip [0..] (reverse xs) ]
-
-
-doubleIfIndexIsOdd :: Int -> Int -> Int
-doubleIfIndexIsOdd i x
-    | odd i     = 2 * x
-    | otherwise = x
+doubleEveryOther :: [Int] -> [Int]
+doubleEveryOther xs =
+    reverse $ [ if odd i then 2 * x else x | (i, x) <- zip [0..] (reverse xs) ]
 
 
 sumDigits :: [Int] -> Int
