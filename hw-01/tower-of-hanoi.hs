@@ -1,31 +1,54 @@
+{-# OPTIONS_GHC -Wall #-}
+
+module TowerOfHanoi
+    ( hanoi
+    , hanoi4
+    , hanoiN
+    , hanoiTest
+    ) where
+
+
 -- https://en.wikipedia.org/wiki/Tower_of_Hanoi
 -- http://service.scs.carleton.ca/sites/default/files/tr/TR-04-10.pdf
 
+-- Origin is the first peg
+-- Destination is the second peg
+-- Peg is an Int so we can compare the results simply by eye
 
-type Peg = String
+
+type Peg = Int
 
 type Move = (Peg, Peg)
 
 
--- Destination is the last peg
 hanoi :: Int -> Peg -> Peg -> Peg -> [Move]
-hanoi 1 a _ c = [(a, c)]
-hanoi n a b c = hanoi (n - 1) a c b ++ hanoi 1 a b c ++ hanoi (n - 1) b a c
+hanoi 1 o d _ = [(o, d)]
+hanoi n o d t = hanoi (n - 1) o t d ++ hanoi 1 o d t ++ hanoi (n - 1) t d o
 
 
--- Destination is the last peg
 hanoi4 :: Int -> Int -> Peg -> Peg -> Peg -> Peg -> [Move]
-hanoi4 1 _ a _ _ d = [(a, d)]
-hanoi4 n k a b c d = hanoi4 (n - k) k a c d b ++ hanoi k a c d ++ hanoi4 (n - k) k b a c d
+hanoi4 1 _ o d _ _ = [(o, d)]
+hanoi4 n k o d t t' = hanoi4 (n - k) k o t t' d ++ hanoi k o d t' ++ hanoi4 (n - k) k t d o t'
 
 
--- Destination is the second peg, works when the number of the pegs is greater than 3
-hanoiN :: Int -> [Int] -> [(Int, Int)]
-hanoiN 1 (x:y:_) = [(x, y)]
-hanoiN n (x:y:z:rest) =
-    hanoiN k (x:z:y:rest)
-    ++
-    hanoiN (n - k) (x:y:rest)
-    ++
-    hanoiN k (z:y:x:rest)
-        where k = n - round (sqrt (fromIntegral (2 * n + 1))) + 1
+hanoiN :: Int -> [Peg] -> [Move]
+hanoiN 1 (o:d:_) = [(o, d)]
+hanoiN n (o:d:t:ts) = hanoiN k (o:t:d:ts) ++ hanoiN (n - k) (o:d:ts) ++ hanoiN k (t:d:o:ts)
+    where k
+            | null ts   = n - 1
+            | otherwise = n - round ((sqrt :: Double -> Double) (fromIntegral (2 * n + 1))) + 1
+hanoiN _ _ = []
+
+
+-- TESTS
+
+hanoiTest :: Bool
+hanoiTest = and
+    [ hanoi 3 1 2 3         == [(1,2),(1,3),(2,3),(1,2),(3,1),(3,2),(1,2)]
+    , hanoiN 3 [1, 2, 3]    == [(1,2),(1,3),(2,3),(1,2),(3,1),(3,2),(1,2)]
+    , hanoi4 3 2 1 2 3 4    == [(1,3),(1,4),(1,2),(4,2),(3,2)]
+    , hanoiN 3 [1, 2, 3, 4] == [(1,3),(1,4),(1,2),(4,2),(3,2)]
+    , hanoi4 4 3 1 2 3 4    == [(1,3),(1,2),(1,4),(2,4),(1,2),(4,1),(4,2),(1,2),(3,2)]
+    , hanoiN 4 [1, 2, 3, 4] == [(1,2),(1,3),(2,3),(1,4),(1,2),(4,2),(3,1),(3,2),(1,2)]
+    , hanoi4 4 1 1 2 3 4    == [(1,2),(1,4),(2,4),(1,3),(4,1),(4,3),(1,3),(1,2),(3,4),(3,1),(4,1),(3,2),(1,3),(1,2),(3,2)]
+    ]

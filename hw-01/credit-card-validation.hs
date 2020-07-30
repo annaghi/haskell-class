@@ -1,3 +1,11 @@
+{-# OPTIONS_GHC -Wall #-}
+
+module CreditCardValidation
+    ( validate
+    , validateTest
+    ) where
+
+
 -- https://en.wikipedia.org/wiki/Luhn_algorithm
 
 
@@ -21,7 +29,10 @@ clean xs =
 
 doubleEveryOther :: [Int] -> [Int]
 doubleEveryOther xs =
-    reverse $ [ if odd i then 2 * x else x | (i, x) <- zip [0..] (reverse xs) ]
+    reverse [ if odd i then 2 * x else x | (i, x) <- zip' [0..] (reverse xs) ]
+    where 
+        zip' :: [Int] -> [Int] -> [(Int, Int)]
+        zip' = zip
 
 
 sumDigits :: [Int] -> Int
@@ -44,3 +55,13 @@ output b =
     if b
         then "Valid!"
         else "The card number is invalid"
+
+
+-- TESTS
+
+validateTest :: Bool
+validateTest = and
+    [ validate "4012888888881881" == "Valid!"
+    , validate "4012888888881882" == "The card number is invalid"
+    , validate "1234abcd5678efgh" == "The input is invalid"
+    ]
