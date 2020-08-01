@@ -16,9 +16,11 @@ module TowerOfHanoi
 -- Peg is an Int so we can compare the results simply by eye
 
 
-type Peg = Int
+type Peg
+    = Int
 
-type Move = (Peg, Peg)
+type Move
+    = (Peg, Peg)
 
 
 hanoi :: Int -> Peg -> Peg -> Peg -> [Move]

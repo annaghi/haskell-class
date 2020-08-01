@@ -29,10 +29,7 @@ clean xs =
 
 doubleEveryOther :: [Int] -> [Int]
 doubleEveryOther xs =
-    reverse [ if odd i then 2 * x else x | (i, x) <- zip' [0..] (reverse xs) ]
-    where 
-        zip' :: [Int] -> [Int] -> [(Int, Int)]
-        zip' = zip
+    reverse [ if odd i then 2 * x else x | (i, x) <- zip ([0..] :: [Int]) (reverse xs) ]
 
 
 sumDigits :: [Int] -> Int
@@ -41,13 +38,13 @@ sumDigits xs =
 
 
 remainderBy10 :: Int -> Int
-remainderBy10 x =
-    x `rem` 10
+remainderBy10 =
+    (`rem` 10)
 
 
 checkIfZero :: Int -> Bool
 checkIfZero =
-    (==) 0
+    (== 0)
 
 
 output :: Bool -> String
