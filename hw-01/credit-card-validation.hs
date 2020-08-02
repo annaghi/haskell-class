@@ -9,7 +9,7 @@ module CreditCardValidation
 -- https://en.wikipedia.org/wiki/Luhn_algorithm
 
 
-import Data.Char
+import Data.Char (digitToInt)
 
 
 validate :: String -> String
