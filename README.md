@@ -8,14 +8,11 @@ Learning Material
 
 ## Expressions
 
-### Algebraic functions
-
-- function
-- expression
-- referential transparency (pure expressions)
-
 ### Function
 
+- function `f ∊ A ⟶ B, ∀a ∊ A ∃!b ∊ B: f(a) = b`
+- expression
+- referential transparency (pure expressions)
 - name
 - parameter
 - variable
@@ -27,16 +24,15 @@ Learning Material
 
 ### Function application
 
-- function application
+- function application `$`
 - partial function application
 - section an infix function
-- `$`
-- `.`
+- function composition `.`
 
 ### List comprehension
 
-- list comprehension
-- list enumeration
+- list enumeration `[1..]`
+- list comprehension `[output function | variable binding to input set, filter by predicates]`
 - input set
 - variable binding
 - predicate
@@ -54,6 +50,7 @@ Learning Material
 ### Pattern matching
 
 - ...
+- as pattern
 - wild-card
 
 ### Recursion
@@ -69,9 +66,7 @@ Learning Material
 - case expression (catch-all pattern)
 - guards (catch-all guard)
 
-## Types
-
-### Type system
+## Type system
 
 - type system
 - strong type system
@@ -79,14 +74,19 @@ Learning Material
 - type inference
 - type coercion
 
-### Typeclass
+### Polymorphism
 
-- typeclass
-- polymorphic constant
+- parametric polymorphism `a`
+- bounded parametric polymorphism `Eq a`
 - polymorphic type
+- polymorphic constant
 - polymorphic function
 
-#### Type
+### Typeclass
+
+- typeclass `Eq`
+
+### Type
 
 - type
 - type name
@@ -96,4 +96,4 @@ Learning Material
 - type signature
 - type parameter
 - type variable
-- class constraint
+- class constraint `Eq a =>`
