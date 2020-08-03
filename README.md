@@ -24,10 +24,30 @@ Learning Material
 
 ### Function application
 
-- function application `$`
+- function application
+
+  - `space` with highest precedence, left-associative
+    ```
+    f a = f(a)
+    f a `g` b = (f a) `g` b                                       -- highest prec.
+    h g f a = (h g) f a = ((h g) f) a                             -- left-assoc.
+    ```
+  - `$` with lowest precedence, right-associative
+    ```
+    f $ a = ($) f a = f a = f(a)
+    f $ a `g` b = f(a `g` b)                                      -- lowest prec.
+    h $ g $ f $ a = h $ g $ f a = h $ g (f a) = h (g (f a))       -- right-assoc.
+    ```
+
 - partial function application
 - section an infix function
-- function composition `.`
+- `.` function composition, (here) right-associative
+  ```
+  g . f = g(f)
+  g . f a = g . (f a) 👈
+  g . f $ a = ($) (g . f) a = (g . f) a = (g(f)) a
+  h . g . f $ a = h . (g . f) $ a = (h . (g . f)) $ a = (h(g(f))) $ a = (h(g(f))) a
+  ```
 
 ### List comprehension
 
@@ -50,8 +70,8 @@ Learning Material
 ### Pattern matching
 
 - ...
-- as pattern
-- wild-card
+- as pattern `name@pattern`
+- wild-card `_`
 
 ### Recursion
 
@@ -63,8 +83,8 @@ Learning Material
 - if-else expression
 - predicate
 - branches
-- case expression (catch-all pattern)
-- guards (catch-all guard)
+- case expression (`_` catch-all pattern)
+- guards (`otherwise` catch-all guard)
 
 ## Type system
 
