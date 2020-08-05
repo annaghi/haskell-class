@@ -6,43 +6,42 @@ Learning Material
 - http://learnyouahaskell.com/
 - http://book.realworldhaskell.org/
 
-## Expressions
+## Functions
 
-### Function
-
-- function `f ∊ A ⟶ B, ∀a ∊ A ∃!b ∊ B: f(a) = b`
 - expression
+- function `f ∊ A ⟶ B, ∀a ∊ A ∃!b ∊ B: f(a) = b`
 - referential transparency (pure expressions)
+- value
 - name
 - parameter
 - variable
 - variable binding
 - argument
+- function signature
 - function declaration
 - function definition
-- function signature
 
 ### Function application
 
 - function application
 
   - `space` with highest precedence, left-associative
-    ```
+    ```haskell
     f a = f(a)
     f a `g` b = (f a) `g` b                                       -- highest prec.
     h g f a = (h g) f a = ((h g) f) a                             -- left-assoc.
     ```
   - `$` with lowest precedence, right-associative
-    ```
+    ```haskell
     f $ a = ($) f a = f a = f(a)
-    f $ a `g` b = f(a `g` b)                                      -- lowest prec.
+    f $ a `g` b = f (a `g` b)                                     -- lowest prec.
     h $ g $ f $ a = h $ g $ f a = h $ g (f a) = h (g (f a))       -- right-assoc.
     ```
 
 - partial function application
 - section an infix function
 - `.` function composition, (here) right-associative
-  ```
+  ```haskell
   g . f = g(f)
   g . f a = g . (f a) 👈
   g . f $ a = ($) (g . f) a = (g . f) a = (g(f)) a
@@ -70,6 +69,7 @@ Learning Material
 ### Pattern matching
 
 - ...
+- nested pattern matching
 - as pattern `name@pattern`
 - wild-card `_`
 
@@ -94,26 +94,60 @@ Learning Material
 - type inference
 - type coercion
 
-### Polymorphism
-
-- parametric polymorphism `a`
-- bounded parametric polymorphism `Eq a`
-- polymorphic type
-- polymorphic constant
-- polymorphic function
-
 ### Typeclass
 
 - typeclass `Eq`
+- instantiate a data tpye
+- instance
+- derived instance
 
-### Type
+### Types
 
 - type
 - type name
 - type annotation
-- type definition
-- type declaration
 - type signature
+- type declaration
+- type definition
 - type parameter
 - type variable
-- class constraint `Eq a =>`
+- typeclass constraint `Eq a =>`
+
+### Algebraic Data Types
+
+- all types in Haskell are algebraic data types
+- composite type
+- product type
+- sum type
+- product type fields
+- sum type variants
+- lookup functions
+- constructors
+- type constructor produces new types (only if type parameters)
+- value constructors produce new values
+- value constructor parameters
+
+### Polymorphism
+
+- parametric polymorphism `a`
+- ad-hoc (bounded parametric) polymorphism `Eq a`
+- parametric polymorphic type
+  ```haskell
+    [a]
+    Maybe a
+  ```
+- parametric polymorphic constant
+  ```haskell
+    [] :: [a]
+    Nothing :: Maybe a
+    20 :: Num p => p
+    minBound :: Bounded a => a
+  ```
+- parametric polymorphic function
+  ```haskell
+    map :: (a -> b) -> [a] -> [b]
+  ```
+- ad-hoc polymorphic function
+  ```haskell
+    elem :: (Eq a) => a -> [a] -> Bool
+  ```
