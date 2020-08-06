@@ -9,7 +9,7 @@ Learning Material
 ## Functions
 
 - expression
-- function `f ∊ A ⟶ B, ∀a ∊ A ∃!b ∊ B: f(a) = b`
+- function `f ∊ X ⟶ Y, ∀x ∊ X ∃!y ∊ Y: f(x) = y`
 - referential transparency (pure expressions)
 - value
 - name
@@ -27,25 +27,25 @@ Learning Material
 
   - `space` with highest precedence, left-associative
     ```haskell
-    f a = f(a)
-    f a `g` b = (f a) `g` b                                       -- highest prec.
-    h g f a = (h g) f a = ((h g) f) a                             -- left-assoc.
+      f x = f(x)
+      f x `g` y = (f x) `g` y                                            -- highest prec.
+      h g f x = (h g) f x = ((h g) f) x                                  -- left-assoc.
     ```
   - `$` with lowest precedence, right-associative
     ```haskell
-    f $ a = ($) f a = f a = f(a)
-    f $ a `g` b = f (a `g` b)                                     -- lowest prec.
-    h $ g $ f $ a = h $ g $ f a = h $ g (f a) = h (g (f a))       -- right-assoc.
+      f $ x = ($) f x = f x = f(x)
+      f $ x `g` y = f (x `g` y)                                          -- lowest prec.
+      h $ g $ f $ x = h $ g $ (f $ x) = h $ (g $ (f $ x)) = h (g (f x))  -- right-assoc.
     ```
 
 - partial function application
 - section an infix function
-- `.` function composition, (here) right-associative
+- `.` function composition, (in Haskell) right-associative
   ```haskell
-  g . f = g(f)
-  g . f a = g . (f a) 👈
-  g . f $ a = ($) (g . f) a = (g . f) a = (g(f)) a
-  h . g . f $ a = h . (g . f) $ a = (h . (g . f)) $ a = (h(g(f))) $ a = (h(g(f))) a
+    g . f = g(f)
+    g . f x = g . (f x) 👈
+    g . f $ x = ($) (g . f) x = (g . f) x = (g(f)) x
+    h . g . f $ x = h . (g . f) $ x = (h . (g . f)) $ x = (h(g(f))) $ x = (h(g(f))) x
   ```
 
 ### List comprehension
@@ -94,43 +94,11 @@ Learning Material
 - type inference
 - type coercion
 
-### Typeclass
-
-- typeclass `Eq`
-- instantiate a data tpye
-- instance
-- derived instance
-
-### Types
-
-- type
-- type name
-- type annotation
-- type signature
-- type declaration
-- type definition
-- type parameter
-- type variable
-- typeclass constraint `Eq a =>`
-
-### Algebraic Data Types
-
-- all types in Haskell are algebraic data types
-- composite type
-- product type
-- sum type
-- product type fields
-- sum type variants
-- lookup functions
-- constructors
-- type constructor produces new types (only if type parameters)
-- value constructors produce new values
-- value constructor parameters
-
 ### Polymorphism
 
 - parametric polymorphism `a`
 - ad-hoc (bounded parametric) polymorphism `Eq a`
+- typeclass constraint `Eq a =>`
 - parametric polymorphic type
   ```haskell
     [a]
@@ -151,3 +119,34 @@ Learning Material
   ```haskell
     elem :: (Eq a) => a -> [a] -> Bool
   ```
+
+### Types
+
+- type
+- type name
+- type annotation
+- type signature
+- type declaration
+- type definition
+- type parameter
+- type variable
+
+### Typeclass
+
+- typeclass `Eq`
+- instantiate a data tpye
+- instance
+- derived instance
+
+### Algebraic Data Types
+
+- composite type
+- product type
+- sum type
+- product type fields
+- sum type variants
+- lookup functions
+- constructors
+- constructor parameters
+- type constructor
+- value constructors
