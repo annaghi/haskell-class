@@ -24,7 +24,6 @@ Learning Material
 ### Function application
 
 - function application
-
   - `space` with highest precedence, left-associative
     ```haskell
       f x = f(x)
@@ -37,7 +36,6 @@ Learning Material
       f $ x `g` y = f (x `g` y)                                          -- lowest prec.
       h $ g $ f $ x = h $ g $ (f $ x) = h $ (g $ (f $ x)) = h (g (f x))  -- right-assoc.
     ```
-
 - partial function application
 - section an infix function
 - `.` function composition, (in Haskell) right-associative
@@ -99,26 +97,37 @@ Learning Material
 - parametric polymorphism `a`
 - ad-hoc (bounded parametric) polymorphism `Eq a`
 - typeclass constraint `Eq a =>`
-- parametric polymorphic type
-  ```haskell
-    [a]
-    Maybe a
-  ```
-- parametric polymorphic constant
-  ```haskell
-    [] :: [a]
-    Nothing :: Maybe a
-    20 :: Num p => p
-    minBound :: Bounded a => a
-  ```
-- parametric polymorphic function
-  ```haskell
-    map :: (a -> b) -> [a] -> [b]
-  ```
-- ad-hoc polymorphic function
-  ```haskell
-    elem :: (Eq a) => a -> [a] -> Bool
-  ```
+- parametrically polymorphic
+  - value
+    ```haskell
+      [] :: [a]
+      Nothing :: Maybe a
+    ```
+  - function
+    ```haskell
+      id :: a -> a
+      map :: (a -> b) -> [a] -> [b]
+    ```
+- ad-hoc polymorphic
+  - value:
+    ```haskell
+      20 :: Num p => p
+      minBound :: Bounded a => a
+    ```
+  - function
+    ```haskell
+      max :: Ord a => a -> a -> a
+      elem :: (Foldable t, Eq a) => a -> t a -> Bool
+    ```
+- parametrically and ad-hoc polymorphic
+  - value
+    ```haskell
+      (3, Nothing) :: Num a1 => (a1, Maybe a2)           -- a bit artificial
+    ```
+  - function
+    ```haskell
+      concat :: Foldable t => t [a] -> [a]
+    ```
 
 ### Types
 
