@@ -9,7 +9,10 @@ Learning Material
 ## Functions
 
 - expression
-- function `f ∊ X ⟶ Y, ∀x ∊ X ∃!y ∊ Y: f(x) = y`
+- function
+- function with side effects
+- function without side effects (pure)
+- pure function `f ∊ X ⟶ Y, ∀x ∊ X ∃!y ∊ Y: f(x) = y`
 - referential transparency (pure expressions)
 - value
 - name
@@ -20,21 +23,24 @@ Learning Material
 - function signature
 - function declaration
 - function definition
+- functions cannot be equated, compared, ordered
 
 ### Function application
 
+- first order function
+- higher order function
 - function application
   - `space` with highest precedence, left-associative
     ```haskell
       f x = f(x)
-      f x `g` y = (f x) `g` y                                            -- highest prec.
-      h g f x = (h g) f x = ((h g) f) x                                  -- left-assoc.
+      f x `g` y = (f x) `g` y                                              -- highest prec.
+      h g f x = (h g) f x = ((h g) f) x                                    -- left-assoc.
     ```
   - `$` with lowest precedence, right-associative
     ```haskell
       f $ x = ($) f x = f x = f(x)
-      f $ x `g` y = f (x `g` y)                                          -- lowest prec.
-      h $ g $ f $ x = h $ g $ (f $ x) = h $ (g $ (f $ x)) = h (g (f x))  -- right-assoc.
+      f $ x `g` y = f (x `g` y)                                            -- lowest prec.
+      h $ g $ f $ x = h $ g $ (f $ x) = h $ (g $ (f $ x)) = h (g (f x))    -- right-assoc.
     ```
 - partial function application
 - section an infix function
@@ -46,7 +52,7 @@ Learning Material
     h . g . f $ x = h . (g . f) $ x = (h . (g . f)) $ x = (h(g(f))) $ x = (h(g(f))) x
   ```
 
-### List comprehension
+### List comprehensions
 
 - list enumeration `[1..]`
 - list comprehension `[output function | variable binding to input set, filter by predicates]`
@@ -66,15 +72,15 @@ Learning Material
 
 ### Pattern matching
 
-- ...
+- matching value on value constructors
+  ```haskell
+    0    1    123    'a'    "abc"    True
+    Nothing    Just something    Left error    Right result
+    []    [x, y]    (x:xs)    (a, b, c)
+  ```
 - nested pattern matching
 - as pattern `name@pattern`
 - wild-card `_`
-
-### Recursion
-
-- recursion
-- edge condition
 
 ### Conditionals
 
@@ -84,6 +90,17 @@ Learning Material
 - case expression (`_` catch-all pattern)
 - guards (`otherwise` catch-all guard)
 
+### Recursion
+
+- recursion
+- edge condition
+- mutual recursion
+
+### Anonymous functions
+
+- currying
+- ...
+
 ## Type system
 
 - type system
@@ -91,6 +108,9 @@ Learning Material
 - static type checking
 - type inference
 - type coercion
+- `type` type alias
+- `data` algebraic data type
+- `class` typeclass
 
 ### Polymorphism
 
@@ -109,7 +129,7 @@ Learning Material
       map :: (a -> b) -> [a] -> [b]
     ```
 - ad-hoc polymorphic
-  - value:
+  - value
     ```haskell
       20 :: Num p => p
       minBound :: Bounded a => a
@@ -122,7 +142,7 @@ Learning Material
 - parametrically and ad-hoc polymorphic
   - value
     ```haskell
-      (3, Nothing) :: Num a1 => (a1, Maybe a2)           -- a bit artificial
+      Right 20 :: Num b => Either a b
     ```
   - function
     ```haskell
@@ -140,7 +160,7 @@ Learning Material
 - type parameter
 - type variable
 
-### Typeclass
+### Typeclasses
 
 - typeclass `Eq`
 - instantiate a data tpye
@@ -149,9 +169,49 @@ Learning Material
 
 ### Algebraic Data Types
 
+- every type is an algebraic data type
 - composite type
-- product type
-- sum type
+  - sum type
+    ```haskell
+      |Int| = 2^64 − 1
+      |Bool| = |{True}| + |{False}| = 1 + 1 = 2
+      |Either a b| = |Left a| + |Right b| = |a| + |b|
+      |Maybe a| = |{Nothing}| + |Just a| = 1 + |a|
+    ```
+    ```haskell
+      data T a = T' a | T'' Bool | T'''
+      |T a| = |T' a| + |T'' Bool| + |{T'''}| = |a| + 2 + 1
+    ```
+  - product type
+    ```haskell
+      |(Int, Bool)| = |Int| * |Bool| = (2^64 − 1) * 2
+      |(a, b)| = |a| * |b|
+      |{x : a, y : b, z : a}| = |{x ∊ a}| * |{y ∊ b}| * |{z ∊ a}|
+    ```
+- general algebraic data type (_Let us say that each value constructor tags a product type_)
+  - product type
+    ```haskell
+      data T = T'
+      |T| = |{T'}| = 1
+    ```
+    ```haskell
+      data T a = T' a
+      |T a| = |T' a| = |a|
+    ```
+  - sum type of product types
+    ```haskell
+      data T = T' | T''
+      |T| = |{T'}| + |{T''}| = 1 + 1
+    ```
+    ```haskell
+      data T a b = T' a | T'' a b
+      |T a b| = |T' a| + |T'' a b| = |a| + |a| * |b|
+    ```
+  - recursive sum type of product types
+    ```haskell
+      data List a = Nil | Cons a (List a)
+      |List a| = |Nil| + |Cons a (List a)| = 1 + |a| * |List a|
+    ```
 - product type fields
 - sum type variants
 - lookup functions
@@ -159,3 +219,5 @@ Learning Material
 - constructor parameters
 - type constructor
 - value constructors
+
+### Kinds
