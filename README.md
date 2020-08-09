@@ -8,13 +8,13 @@ Learning Material
 
 ## Functions
 
+- value
 - expression
 - function
 - function with side effects
 - function without side effects (pure)
 - pure function `f ∊ X ⟶ Y, ∀x ∊ X ∃!y ∊ Y: f(x) = y`
 - referential transparency (pure expressions)
-- value
 - name
 - parameter
 - variable
@@ -61,6 +61,15 @@ Learning Material
 - predicate
 - filtering
 - output function
+
+### Syntactic sugars
+
+- `[x, y] == x:y:[]`
+- `String == [Char]`
+- `"" == []`
+- `"sugar" == ['s','u','g','a','r'] == 's':'u':'g':'a':'r':[]`
+- `otherwise == True`
+- pattern matching on parameters in function definitions == case expressions
 
 ### Bindings
 
@@ -160,13 +169,6 @@ Learning Material
 - type parameter
 - type variable
 
-### Typeclasses
-
-- typeclass `Eq`
-- instantiate a data tpye
-- instance
-- derived instance
-
 ### Algebraic Data Types
 
 - every type is an algebraic data type
@@ -174,13 +176,13 @@ Learning Material
   - sum type
     ```haskell
       |Int| = 2^64 − 1
-      |Bool| = |{True}| + |{False}| = 1 + 1 = 2
+      |Bool| = |True| + |False| = 1 + 1 = 2
       |Either a b| = |Left a| + |Right b| = |a| + |b|
-      |Maybe a| = |{Nothing}| + |Just a| = 1 + |a|
+      |Maybe a| = |Nothing| + |Just a| = 1 + |a|
     ```
     ```haskell
       data T a = T' a | T'' Bool | T'''
-      |T a| = |T' a| + |T'' Bool| + |{T'''}| = |a| + 2 + 1
+      |T a| = |T' a| + |T'' Bool| + |T'''| = |a| + 2 + 1
     ```
   - product type
     ```haskell
@@ -192,7 +194,7 @@ Learning Material
   - product type
     ```haskell
       data T = T'
-      |T| = |{T'}| = 1
+      |T| = |T'| = 1
     ```
     ```haskell
       data T a = T' a
@@ -201,7 +203,7 @@ Learning Material
   - sum type of product types
     ```haskell
       data T = T' | T''
-      |T| = |{T'}| + |{T''}| = 1 + 1
+      |T| = |T'| + |T''| = 1 + 1
     ```
     ```haskell
       data T a b = T' a | T'' a b
@@ -219,5 +221,12 @@ Learning Material
 - constructor parameters
 - type constructor
 - value constructors
+
+### Typeclasses
+
+- typeclass `Eq`
+- instantiate a data tpye
+- instance
+- derived instance
 
 ### Kinds
