@@ -69,7 +69,7 @@ Learning Material
 - `"" == []`
 - `"sugar" == ['s','u','g','a','r'] == 's':'u':'g':'a':'r':[]`
 - `otherwise == True`
-- pattern matching on parameters in function definitions == case expressions
+- pattern matching on parameters in function definitions `==` case expressions
 
 ### Bindings
 
@@ -85,7 +85,7 @@ Learning Material
   ```haskell
     0    1    123    'a'    "abc"    True
     Nothing    Just something    Left error    Right result
-    []    [x, y]    (x:xs)    (a, b, c)
+    []    [x, y]    (x:xs)    (x, y, z)
   ```
 - nested pattern matching
 - as pattern `name@pattern`
@@ -172,25 +172,7 @@ Learning Material
 ### Algebraic Data Types
 
 - every type is an algebraic data type
-- composite type
-  - sum type
-    ```haskell
-      |Int| = 2^64 − 1
-      |Bool| = |True| + |False| = 1 + 1 = 2
-      |Either a b| = |Left a| + |Right b| = |a| + |b|
-      |Maybe a| = |Nothing| + |Just a| = 1 + |a|
-    ```
-    ```haskell
-      data T a = T' a | T'' Bool | T'''
-      |T a| = |T' a| + |T'' Bool| + |T'''| = |a| + 2 + 1
-    ```
-  - product type
-    ```haskell
-      |(Int, Bool)| = |Int| * |Bool| = (2^64 − 1) * 2
-      |(a, b)| = |a| * |b|
-      |{x : a, y : b, z : a}| = |{x ∊ a}| * |{y ∊ b}| * |{z ∊ a}|
-    ```
-- general algebraic data type (_Let us say that each value constructor tags a product type_)
+- composite type (_Each value constructor tags a product type_)
   - product type
     ```haskell
       data T = T'
@@ -200,27 +182,46 @@ Learning Material
       data T a = T' a
       |T a| = |T' a| = |a|
     ```
-  - sum type of product types
     ```haskell
-      data T = T' | T''
-      |T| = |T'| + |T''| = 1 + 1
+      data T a b = T' a b
+      |T a b| = |T' a b| = |a| * |b|
     ```
+    ```haskell
+      |(Int, Bool)| = |Int| * |Bool| = (2^64 − 1) * 2
+      |(a, b)| = |a| * |b|
+      |{x : a, y : b, z : a}| = |{x ∊ a}| * |{y ∊ b}| * |{z ∊ a}|
+    ```
+  - sum type
+    ```haskell
+      data T = T' | T'' | T'''
+      |T| = |T'| + |T''| + |T'''| = 1 + 1 + 1
+    ```
+    ```haskell
+      |Int| = 2^64 − 1
+      |Bool| = |True| + |False| = 1 + 1 = 2
+    ```
+  - sum type of product types
     ```haskell
       data T a b = T' a | T'' a b
       |T a b| = |T' a| + |T'' a b| = |a| + |a| * |b|
+    ```
+    ```haskell
+      |Either a Bool| = |Left a| + |Right Bool| = |a| + |Bool| = |a| + 2
+      |Maybe a| = |Nothing| + |Just a| = 1 + |a|
     ```
   - recursive sum type of product types
     ```haskell
       data List a = Nil | Cons a (List a)
       |List a| = |Nil| + |Cons a (List a)| = 1 + |a| * |List a|
     ```
-- product type fields
-- sum type variants
-- lookup functions
-- constructors
-- constructor parameters
-- type constructor
-- value constructors
+
+* product type fields
+* sum type variants
+* lookup functions
+* constructors
+* constructor parameters
+* type constructor
+* value constructors
 
 ### Typeclasses
 
