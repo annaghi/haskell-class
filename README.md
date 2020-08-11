@@ -6,24 +6,57 @@ Learning Material
 - http://learnyouahaskell.com/
 - http://book.realworldhaskell.org/
 
-## Functions
+TOC
 
-- value
-- expression
-- function
-- function with side effects
-- function without side effects (pure)
+- Expressions
+- Types
+
+## Expressions
+
+- name
+  - variables and (value) constructors for values
+  - type variables, type constructors, type classes for type system related entities
+  - module names
+- every expression evaluates to a value and has a static type
+  ```haskell
+  --expression                    value            type                     expression semantics
+  --
+    True                       == True          :: Bool                  -- boolean literal
+    12.3                       == 12.3          :: Fractional p => p     -- floating point literal
+    "hello"                    == "hello"       :: [Char]                -- string literal
+    ['a','b','c']              == ['a','b','c'] :: [Char]                -- list
+    (4, "hello")               == (4, "hello")  :: Num a => (a, [Char])  -- tuple
+    1 + 2 * 3                  == 7             :: Num a => a            -- infix operator application
+    map (toUpper) "abc"        == "ABC"         :: [Char]                -- function application
+    [x | x <- [1..5], odd x]   == [1,3,5]       :: Integral a => [a]     -- list comprehension
+    if 3 > 4 then "!" else "?" == "?"           :: [Char]                -- conditional
+  ```
+- variable
+  ```haskell
+  --variable    definition
+  --
+    x         = 2
+    fst (x,_) = x
+    (+) x y   = x + y
+    f         = max
+    g h x     = h x + x
+  ```
+- function with side effects `f :: Int -> IO Int`
+- function without side effects (pure) `f :: Int -> Int`
 - pure function `f ∊ X ⟶ Y, ∀x ∊ X ∃!y ∊ Y: f(x) = y`
 - referential transparency (pure expressions)
 - name
 - parameter
-- variable
-- variable binding
-- argument
-- function signature
-- function declaration
 - function definition
+- type signature `e :: [context =>] type`
+- function declaration `function_name parameters :: typeclass constraints => type -> ... -> type`
+- variable starts with lowercase letter
+- variable binding `variable = function_name arguments`
+- argument `variable = function_name arguments`
+- function call
 - functions cannot be equated, compared, ordered
+- lazy evaluation
+- strict evaluation
 
 ### Function application
 
@@ -110,13 +143,14 @@ Learning Material
 - currying
 - ...
 
-## Type system
+## Types
 
 - type system
 - strong type system
 - static type checking
 - type inference
 - type coercion
+- overloading
 - `type` type alias
 - `data` algebraic data type
 - `class` typeclass
@@ -164,7 +198,7 @@ Learning Material
 - type name
 - type annotation
 - type signature
-- type declaration
+- type declaration (with `type` and `data`)
 - type definition
 - type parameter
 - type variable
@@ -206,8 +240,8 @@ Learning Material
       |T a b| = |T' a| + |T'' a b| = |a| + |a| * |b|
     ```
     ```haskell
-      |Either a Bool| = |Left a| + |Right Bool| = |a| + |Bool| = |a| + 2
       |Maybe a| = |Nothing| + |Just a| = 1 + |a|
+      |Either a Bool| = |Left a| + |Right Bool| = |a| + |Bool| = |a| + 2
     ```
   - recursive sum type of product types
     ```haskell
