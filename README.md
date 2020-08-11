@@ -31,15 +31,16 @@ TOC
     [x | x <- [1..5], odd x]   == [1,3,5]       :: Integral a => [a]     -- list comprehension
     if 3 > 4 then "!" else "?" == "?"           :: [Char]                -- conditional
   ```
-- variable
+- binding of variables to expressions provide definitions
   ```haskell
-  --variable    definition
+  --variable    expression
   --
-    x         = 2
-    fst (x,_) = x
-    (+) x y   = x + y
-    f         = max
-    g h x     = h x + x
+    x         = 2                  -- variable binding
+    fst (x,_) = x                  -- first order function definition
+    (+) x y   = x + y              -- operator definition
+    f         = max                -- first order function definition
+    g h x     = h x + x            -- higher order function definition
+    [ x^2 | x <- [1..10] ]         -- variable binding in list comprehension
   ```
 - function with side effects `f :: Int -> IO Int`
 - function without side effects (pure) `f :: Int -> Int`
