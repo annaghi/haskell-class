@@ -13,49 +13,46 @@ TOC
 
 ## Expressions
 
-- name
+- 6 kinds of names
   - variables and (value) constructors for values
   - type variables, type constructors, type classes for type system related entities
   - module names
 - every expression evaluates to a value and has a static type
   ```haskell
-  --expression                    value            type                     expression semantics
+  --expression                    value            context         type            expression semantics
   --
-    True                       == True          :: Bool                  -- boolean literal
-    12.3                       == 12.3          :: Fractional p => p     -- floating point literal
-    "hello"                    == "hello"       :: [Char]                -- string literal
-    ['a','b','c']              == ['a','b','c'] :: [Char]                -- list
-    (4, "hello")               == (4, "hello")  :: Num a => (a, [Char])  -- tuple
-    1 + 2 * 3                  == 7             :: Num a => a            -- infix operator application
-    map (toUpper) "abc"        == "ABC"         :: [Char]                -- function application
-    [x | x <- [1..5], odd x]   == [1,3,5]       :: Integral a => [a]     -- list comprehension
-    if 3 > 4 then "!" else "?" == "?"           :: [Char]                -- conditional
+    True                       == True          ::                 Bool         -- boolean literal
+    12.3                       == 12.3          :: Fractional p => p            -- floating point literal
+    "hello"                    == "hello"       ::                 [Char]       -- string literal
+    ['a','b','c']              == ['a','b','c'] ::                 [Char]       -- list
+    (4, "hello")               == (4, "hello")  :: Num a        => (a, [Char])  -- tuple
+    1 + 2 * 3                  == 7             :: Num a        => a            -- infix operator application
+    map (toUpper) "abc"        == "ABC"         ::                 [Char]       -- function application
+    [x | x <- [1..5], odd x]   == [1,3,5]       :: Integral a   => [a]          -- list comprehension
+    if 3 > 4 then "!" else "?" == "?"           ::                 [Char]       -- conditional
   ```
+- type signature `expression :: [context =>] type`
 - binding of variables to expressions provide definitions
   ```haskell
-  --variable    expression
+  --variable parameters = expression
   --
-    x         = 2                  -- variable binding
-    fst (x,_) = x                  -- first order function definition
-    (+) x y   = x + y              -- operator definition
-    f         = max                -- first order function definition
-    g h x     = h x + x            -- higher order function definition
-    [ x^2 | x <- [1..10] ]         -- variable binding in list comprehension
+    x                   = 2                  -- value definition
+    fst      (x, _)     = x                  -- first order function definition
+    (+)      x y        = x + y              -- operator definition
+    f                   = max                -- first order function definition
+    g        h x        = h x + x            -- higher order function definition
   ```
+  ```haskell
+    [ x^2 | x <- [1..10] ]                   -- variable binding in list comprehension
+  ```
+- function declaration `name parameters :: typeclass constraints => type`
+- argument
+- function call
 - function with side effects `f :: Int -> IO Int`
 - function without side effects (pure) `f :: Int -> Int`
 - pure function `f ∊ X ⟶ Y, ∀x ∊ X ∃!y ∊ Y: f(x) = y`
 - referential transparency (pure expressions)
-- name
-- parameter
-- function definition
-- type signature `e :: [context =>] type`
-- function declaration `function_name parameters :: typeclass constraints => type -> ... -> type`
-- variable starts with lowercase letter
-- variable binding `variable = function_name arguments`
-- argument `variable = function_name arguments`
-- function call
-- functions cannot be equated, compared, ordered
+- functions cannot be equated, compared, ordered, showed
 - lazy evaluation
 - strict evaluation
 
