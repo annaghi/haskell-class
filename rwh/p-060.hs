@@ -1,11 +1,10 @@
 {-# OPTIONS_GHC -Wall #-}
 
-module Exercises
+module Page60
     ( toList
     , fromList
-    , Tree
     , countNodes
-    , exercisesTest
+    , test
     ) where
 
 
@@ -36,8 +35,8 @@ countNodes (Node _ Nothing Nothing)                  = 1
 
 -- TESTS
 
-exercisesTest :: Bool
-exercisesTest = and
+test :: Bool
+test = and
     [ toList Nil                   == ([] :: [()])
     , toList (Cons 1 Nil)          == ([1] :: [Int])
     , toList (Cons 2 (Cons 1 Nil)) == ([2,1] :: [Int])
