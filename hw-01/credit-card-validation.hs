@@ -2,7 +2,7 @@
 
 module CreditCardValidation
     ( validate
-    , validateTest
+    , test
     ) where
 
 
@@ -56,8 +56,8 @@ output b =
 
 -- TESTS
 
-validateTest :: Bool
-validateTest = and
+test :: Bool
+test = and
     [ validate "4012888888881881" == "Valid!"
     , validate "4012888888881882" == "The card number is invalid"
     , validate "1234abcd5678efgh" == "The input is invalid"

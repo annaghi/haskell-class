@@ -4,7 +4,7 @@ module TowerOfHanoi
     ( hanoi
     , hanoi4
     , hanoiN
-    , hanoiTest
+    , test
     ) where
 
 
@@ -44,8 +44,8 @@ hanoiN _ _ = []
 
 -- TESTS
 
-hanoiTest :: Bool
-hanoiTest = and
+test :: Bool
+test = and
     [ hanoi 3 1 2 3         == [(1,2),(1,3),(2,3),(1,2),(3,1),(3,2),(1,2)]
     , hanoiN 3 [1, 2, 3]    == [(1,2),(1,3),(2,3),(1,2),(3,1),(3,2),(1,2)]
     , hanoi4 3 2 1 2 3 4    == [(1,3),(1,4),(1,2),(4,2),(3,2)]
