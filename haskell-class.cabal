@@ -46,7 +46,7 @@ executable haskell-class-exe
       Paths_haskell_class
   hs-source-dirs:
       app
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall
   build-depends:
       base >=4.7 && <5
     , haskell-class
@@ -61,7 +61,7 @@ test-suite haskell-class-test
       Paths_haskell_class
   hs-source-dirs:
       test
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall
   build-depends:
       base >=4.7 && <5
     , haskell-class

@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wall #-}
-
 module RWH.P060
     ( toList
     , fromList

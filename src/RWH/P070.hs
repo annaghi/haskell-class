@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wall #-}
-
 module RWH.P070
     ( test
     ) where

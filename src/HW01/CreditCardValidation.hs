@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wall #-}
-
 module HW01.CreditCardValidation
     ( validate
     , test
