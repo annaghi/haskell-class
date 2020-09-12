@@ -1,11 +1,11 @@
 module RWH.P070
-    ( test
+    ( sortByLength
     ) where
 
 
--- TESTS
+import Data.List (sortBy)
+import Data.Function (on)
 
-test :: Bool
-test = and
-    [ True
-    ]
+
+sortByLength :: [[a]] -> [[a]]
+sortByLength = sortBy (compare `on` length)
