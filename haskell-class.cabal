@@ -1,0 +1,68 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.33.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 780234a64f2d430fe403106aa66c9d7e4d0ad0f8db65bf4c6835e94c1f6a4a07
+
+name:           haskell-class
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/haskell-class#readme>
+homepage:       https://github.com/githubuser/haskell-class#readme
+bug-reports:    https://github.com/githubuser/haskell-class/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2020 Author name here
+license:        MIT
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/haskell-class
+
+library
+  exposed-modules:
+      RWH.P060
+      RWH.P069
+      RWH.P070
+      HW01.CreditCardValidation
+      HW01.TowerOfHanoi
+  other-modules:
+      Paths_haskell_class
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+  default-language: Haskell2010
+
+executable haskell-class-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_haskell_class
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , haskell-class
+    , dsp
+    , random
+  default-language: Haskell2010
+
+test-suite haskell-class-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_haskell_class
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , haskell-class
+  default-language: Haskell2010

@@ -8,10 +8,10 @@ Learning Material
 
 TOC
 
-- Expressions
+- Functions
 - Types
 
-## Expressions
+## Functions
 
 - 6 kinds of names
   - variables and (value) constructors for values

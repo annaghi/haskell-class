@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wall #-}
 
-module Page60
+module RWH.P060
     ( toList
     , fromList
     , countNodes

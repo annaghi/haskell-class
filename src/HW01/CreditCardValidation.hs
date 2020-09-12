@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wall #-}
 
-module CreditCardValidation
+module HW01.CreditCardValidation
     ( validate
     , test
     ) where
@@ -29,7 +29,7 @@ clean xs =
 
 doubleEveryOther :: [Int] -> [Int]
 doubleEveryOther xs =
-    reverse [ if odd i then 2 * x else x | (i, x) <- zip ([0..] :: [Int]) (reverse xs) ]
+    reverse [ if i == 2 then 2 * x else x | (i, x) <- zip (cycle [1,2] :: [Int]) (reverse xs) ]
 
 
 sumDigits :: [Int] -> Int

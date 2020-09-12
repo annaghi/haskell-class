@@ -1,15 +1,16 @@
 {-# OPTIONS_GHC -Wall #-}
 
-module Page69
+module RWH.P069
     ( length'
     , mean
-    , median
     , averages
+    , toPalindrome
+    , isPalindrome
     , test
     ) where
 
 
-import Data.List (sort)
+import Numeric.Statistics.Median (median)
 
 
 length' :: Num b => [a] -> b
@@ -24,32 +25,36 @@ mean xs = sum xs / length'' xs
         length'' = fromIntegral . length
 
 
--- This function is taken from Numeric.Statistics.Median
-median :: (Ord a, Fractional a) => [a] -> a
-median xs =
-    if odd n
-        then sort xs !! (n `div` 2)
-        else ((sort xs !! (n `div` 2 - 1)) + (sort xs !! (n `div` 2))) / 2
-    where
-        n :: Int
-        n = length xs
-
-
 averages :: [[a] -> a] -> [a] -> [a]
 averages _ [] = []
 averages [] _ = []
 averages fs xs = map ($ xs) fs
 
 
+toPalindrome :: Int -> [a] -> [a]
+toPalindrome random xs =
+    if random `mod` 2 == 0
+        then xs ++ (reverse xs)
+        else xs ++ (tail $ reverse xs)
+
+
+isPalindrome :: Eq a => [a] -> Bool
+isPalindrome xs =
+    xs == reverse xs
+
+
 -- TESTS
 
-test :: Bool
-test = and
+test :: Int -> Bool
+test random = and
     [ length' []                      == length []
     , length' "abcde"                 == length "abcde"
-    , (isNaN $ (mean [] :: Double))   == True
+    , (isNaN (mean [] :: Double))     == True
     , mean [1,2,6]                    == (3.0 :: Double)
     , averages [mean] []              == ([] :: [Double])
     , averages [] [1,2,6]             == ([] :: [Double])
     , averages [mean, median] [1,2,6] == [3.0 :: Double, 2.0 :: Double]
+    , (toPalindrome random "an") `elem` ["ana", "anna"]
+    , isPalindrome "palindrome"       == False
+    , isPalindrome "kazak"            == True
     ]
