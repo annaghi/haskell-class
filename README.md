@@ -1,6 +1,13 @@
 # Haskell Class
 
-Learning Material
+## Running the project
+
+```sh
+stack test
+stack exec haskell-class-exe
+```
+
+## Learning Material
 
 - https://www.seas.upenn.edu/~cis194/spring13/
 - http://learnyouahaskell.com/
