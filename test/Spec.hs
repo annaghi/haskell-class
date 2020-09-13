@@ -1,6 +1,12 @@
-import Test.Tasty
-import Test.Tasty.HUnit
-import Utils ((|>))
+import           Test.Tasty
+import           Test.Tasty.HUnit
+import           Test.Tasty.Hedgehog
+import           Hedgehog
+import qualified Hedgehog.Gen as Gen
+import qualified Hedgehog.Range as Range
+
+import           Utils ((|>))
+import qualified Data.List as List
 
 import RWH.P070
 
@@ -24,6 +30,10 @@ tests =
                 , testCase "when the list has more items" $
                     RWH.P070.sortByLength [[1,2,3],[],[8],[2]]
                         |> assertEqual "" [[],[8],[2],[1,2,3]]
+                , testProperty "mapped to length should result as the same as sorting lengths" $
+                    property $ do
+                        xs <- forAll $ Gen.list (Range.linear 0 10) (Gen.list (Range.linear 0 10) Gen.alpha)
+                        (map length . RWH.P070.sortByLength) xs === (List.sort . map length) xs
                 ]
             ]
         ]

@@ -1,11 +1,4 @@
-cabal-version: 1.12
-
--- This file has been generated from package.yaml by hpack version 0.33.0.
---
--- see: https://github.com/sol/hpack
---
--- hash: 780234a64f2d430fe403106aa66c9d7e4d0ad0f8db65bf4c6835e94c1f6a4a07
-
+cabal-version:  3.0
 name:           haskell-class
 version:        0.1.0.0
 description:    Please see the README on GitHub at <https://github.com/githubuser/haskell-class#readme>
@@ -68,4 +61,6 @@ test-suite haskell-class-test
     , haskell-class
     , tasty
     , tasty-hunit
+    , tasty-hedgehog
+    , hedgehog
   default-language: Haskell2010
