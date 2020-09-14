@@ -4,6 +4,7 @@
 
 ```sh
 stack test
+stack ghci
 stack exec haskell-class-exe
 ```
 
