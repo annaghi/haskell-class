@@ -11,9 +11,11 @@ data List a
     | Nil
     deriving (Show)
 
+
 fromList :: [a] -> List a
 fromList (x:xs) = Cons x (fromList xs)
 fromList [] = Nil
+
 
 toList :: List a -> [a]
 toList (Cons x xs) = x : toList xs
@@ -24,14 +26,17 @@ data Tree a
     = Node a (Maybe (Tree a)) (Maybe (Tree a))
     deriving (Show)
 
+
 countNodes :: Tree a -> Int
-countNodes (Node _ (Just leftTree) (Just rightTree)) = 1 + countNodes leftTree + countNodes rightTree
-countNodes (Node _ Nothing (Just rightTree))         = 1 + countNodes rightTree
-countNodes (Node _ (Just leftTree) Nothing)          = 1 + countNodes leftTree
-countNodes (Node _ Nothing Nothing)                  = 1
+countNodes (Node _ (Just left) (Just right)) = 1 + countNodes left + countNodes right
+countNodes (Node _ Nothing (Just right))     = 1 + countNodes right
+countNodes (Node _ (Just left) Nothing)      = 1 + countNodes left
+countNodes (Node _ Nothing Nothing)          = 1
+
 
 
 -- TESTS
+
 
 test :: Bool
 test = and
