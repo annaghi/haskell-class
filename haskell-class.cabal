@@ -28,6 +28,7 @@ library
       HW01.TowerOfHanoi
   other-modules:
       Paths_haskell_class
+  default-extensions: ScopedTypeVariables
   hs-source-dirs:
       src
   build-depends:
@@ -53,6 +54,7 @@ test-suite haskell-class-test
   main-is: Spec.hs
   other-modules:
       Paths_haskell_class
+    , RWH.P070Test
   hs-source-dirs:
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
