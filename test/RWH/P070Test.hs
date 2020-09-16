@@ -9,6 +9,7 @@ import qualified Hedgehog.Range as Range
 import           Utils ((|>))
 
 import qualified Data.List as List
+import           Control.Applicative
 
 import qualified RWH.P070 as XX
 
@@ -41,7 +42,7 @@ tests =
             , testCase "when the list has more items" $
                 XX.intersperse ',' ["one","two"]
                     |> assertEqual "" "one,two"
-            , testProperty "length should result as the same as the sum of the length of concatenation and the number of strings - 1" $
+            , testProperty "with length should result as the same as the sum of the length of concatenation and the number of strings - 1" $
                 property $ do
                     xs <- forAll $ Gen.list (Range.linear 1 10) genString
                     length (XX.intersperse ',' xs) === length (concat xs) + length xs - 1
@@ -66,26 +67,38 @@ tests =
             ]
         , testGroup "Exercise 10-11: direction"
             [ testCase "when turning left" $
-                XX.direction (XX.Point 8 2) (XX.Point 4 5) (XX.Point 1 1)
+                XX.direction (8, 2) (4, 5) (1, 1)
                     |> assertEqual "" XX.Left
             , testCase "when turning right" $
-                XX.direction (XX.Point 1 1) (XX.Point 4 5) (XX.Point 8 2)
+                XX.direction (1, 1) (4, 5) (8, 2)
                     |> assertEqual "" XX.Right
             , testCase "when going straight forward" $
-                XX.direction (XX.Point 8 2) (XX.Point 4 5) (XX.Point 0 8)
+                XX.direction (8, 2) (4, 5) (0, 8)
                     |> assertEqual "" XX.Straight
             , testCase "when going straight backward" $
-                XX.direction (XX.Point 8 2) (XX.Point 4 5) (XX.Point 8 2)
+                XX.direction (8, 2) (4, 5) (8, 2)
                     |> assertEqual "" XX.Straight
             , testCase "when going nowhere" $
-                XX.direction (XX.Point 0 0) (XX.Point 0 0) (XX.Point 0 0)
+                XX.direction (0, 0) (0, 0) (0, 0)
                     |> assertEqual "" XX.Straight
-            , testProperty "should result as the opposite direction of reversed order" $
+            , testProperty "should result as the same as the opposite direction of reversed order" $
                 property $ do
                     a <- forAll genPoint
                     b <- forAll genPoint
                     c <- forAll genPoint
                     XX.direction a b c === (XX.oppositeDirection $ XX.direction c b a)
+            ]
+        , testGroup "Exercise 12: turns"
+            [ testCase "when turning left than right" $
+                XX.turns [(0, 0), (1, 0), (0, 1), (1, 1)]
+                    |> assertEqual "" [XX.Left, XX.Right]
+            , testCase "when turning left than left" $
+                XX.turns [(0, 0), (1, 0), (0, 1), (0, 0)]
+                    |> assertEqual "" [XX.Left, XX.Left]
+            , testProperty "should result as the same as the opposite direction of reflected through X axis" $
+                property $ do
+                    points <- forAll genPointList
+                    XX.turns points === (map XX.oppositeDirection $ XX.turns $ XX.reflection1 points)
             ]
         ]
 
@@ -108,8 +121,16 @@ genTree =
         ]
 
 
-genPoint :: MonadGen m => m XX.Point
+genPoint :: (MonadGen m, Integral a) => m (XX.Point a)
 genPoint =
-    XX.Point
-        <$> Gen.float (Range.exponentialFloat (-10) 10)
-        <*> Gen.float (Range.exponentialFloat (-10) 10)
+    liftA2 (,)
+        (Gen.integral (Range.linearFrom 0 (-10) 10))
+        (Gen.integral (Range.linearFrom 0 (-10) 10))
+    -- (,)
+    --     <$> (Gen.integral (Range.linearFrom 0 (-10) 10))
+    --     <*> (Gen.integral (Range.linearFrom 0 (-10) 10))
+
+
+genPointList :: (MonadGen m, Integral a) => m [XX.Point a]
+genPointList =
+    Gen.list (Range.linear 0 10) genPoint

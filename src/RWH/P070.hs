@@ -4,10 +4,12 @@ module RWH.P070
     , Tree(..)
     , height
     , count
-    , Point(..)
+    , Point
     , Direction(..)
     , direction
     , oppositeDirection
+    , turns
+    , reflection1
     ) where
 
 import Data.List (sortBy)
@@ -44,9 +46,8 @@ count Empty               = 0
 count (Node _ left right) = 1 + count left + count right
 
 
-data Point =
-    Point Float Float
-    deriving (Show)
+-- type Point a = Num a => (a, a)
+type Point a = (a, a)
 
 
 data Direction
@@ -56,8 +57,8 @@ data Direction
     deriving (Show, Eq)
 
 
-direction :: Point -> Point -> Point -> Direction
-direction (Point a1 a2) (Point b1 b2) (Point c1 c2) =
+direction :: forall a. (Num a, Ord a) => Point a -> Point a -> Point a -> Direction
+direction (a1, a2) (b1, b2) (c1, c2) =
     if determinant > 0 then
         Left
     else if determinant < 0 then
@@ -65,13 +66,13 @@ direction (Point a1 a2) (Point b1 b2) (Point c1 c2) =
     else
         Straight
     where
-        determinant :: Float
+        determinant :: a
         determinant = ((b1 - a1) * (c2 - a2)) - ((b2 - a2) * (c1 - a1))
 
 
 oppositeDirection :: Direction -> Direction
-oppositeDirection direction =
-    case direction of
+oppositeDirection direction_ =
+    case direction_ of
         Left ->
             Right
 
@@ -80,3 +81,17 @@ oppositeDirection direction =
 
         Straight ->
             Straight
+
+
+turns :: (Num a, Ord a) => [Point a] -> [Direction]
+turns []           = []
+turns [_]          = []
+turns [_,_]        = []
+turns (a:b:c:rest) = direction a b c : turns (b : c : rest)
+
+
+reflection1 :: Num a => [Point a] -> [Point a]
+reflection1 =
+    map (\(a1, a2) -> (a1, (-a2)))
+
+
