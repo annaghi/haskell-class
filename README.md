@@ -13,6 +13,7 @@ stack exec haskell-class-exe
 - https://www.seas.upenn.edu/~cis194/spring13/
 - http://learnyouahaskell.com/
 - http://book.realworldhaskell.org/
+- https://www.logicmatters.net/resources/pdfs/GentleIntro.pdf
 
 TOC
 
