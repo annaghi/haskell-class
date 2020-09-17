@@ -1,3 +1,5 @@
+{-# LANGUAGE ScopedTypeVariables #-}
+
 module RWH.P070Test (tests) where
 
 import           Test.Tasty
@@ -8,8 +10,10 @@ import qualified Hedgehog.Gen as Gen
 import qualified Hedgehog.Range as Range
 import           Utils ((|>))
 
-import qualified Data.List as List
-import           Control.Applicative
+import Data.List (nub, sort)
+import Data.Tuple (swap)
+import Control.Applicative (liftA2)
+import GHC.Exts (sortWith)
 
 import qualified RWH.P070 as XX
 
@@ -30,7 +34,7 @@ tests =
             , testProperty "mapped to length should result as the same as sorting lengths" $
                 property $ do
                     xs <- forAll $ Gen.list (Range.linear 0 10) genString
-                    (map length . XX.sortByLength) xs === (List.sort . map length) xs
+                    (map length . XX.sortByLength) xs === (sort . map length) xs
             ]
         , testGroup "Exercise 07-08: intersperse"
             [ testCase "when the list is empty" $
@@ -67,38 +71,56 @@ tests =
             ]
         , testGroup "Exercise 10-11: direction"
             [ testCase "when turning left" $
-                XX.direction (8, 2) (4, 5) (1, 1)
+                XX.turn (8,2) (4,5) (1,1)
                     |> assertEqual "" XX.Left
             , testCase "when turning right" $
-                XX.direction (1, 1) (4, 5) (8, 2)
+                XX.turn (1,1) (4,5) (8,2)
                     |> assertEqual "" XX.Right
             , testCase "when going straight forward" $
-                XX.direction (8, 2) (4, 5) (0, 8)
+                XX.turn (8,2) (4,5) (0,8)
                     |> assertEqual "" XX.Straight
             , testCase "when going straight backward" $
-                XX.direction (8, 2) (4, 5) (8, 2)
+                XX.turn (8,2) (4,5) (8,2)
                     |> assertEqual "" XX.Straight
             , testCase "when going nowhere" $
-                XX.direction (0, 0) (0, 0) (0, 0)
+                XX.turn (0,0) (0,0) (0,0)
                     |> assertEqual "" XX.Straight
             , testProperty "should result as the same as the opposite direction of reversed order" $
                 property $ do
                     a <- forAll genPoint
                     b <- forAll genPoint
                     c <- forAll genPoint
-                    XX.direction a b c === (XX.oppositeDirection $ XX.direction c b a)
+                    XX.turn a b c === (XX.oppositeDirection $ XX.turn c b a)
             ]
         , testGroup "Exercise 12: turns"
             [ testCase "when turning left than right" $
-                XX.turns [(0, 0), (1, 0), (0, 1), (1, 1)]
+                XX.turns [(0,0), (1,0), (0,1), (1,1)]
                     |> assertEqual "" [XX.Left, XX.Right]
             , testCase "when turning left than left" $
-                XX.turns [(0, 0), (1, 0), (0, 1), (0, 0)]
+                XX.turns [(0,0), (1,0), (0,1), (0,0)]
                     |> assertEqual "" [XX.Left, XX.Left]
             , testProperty "should result as the same as the opposite direction of reflected through X axis" $
                 property $ do
-                    points <- forAll genPointList
+                    points <- forAll genPoints
                     XX.turns points === (map XX.oppositeDirection $ XX.turns $ XX.reflection1 points)
+            ]
+        , testGroup "Exercise 13: convex hull"
+            [ testCase "sortByAngleWithP0" $
+                XX.sortByAngleWithP0 (0,0) [(2,2), (3,2), (3,0), (4,1), (2,1), (3,3), (1,2), (3,1), (4,3)]
+                    |> assertEqual "" [(0,0), (3,0), (4,1), (3,1), (2,1), (3,2), (4,3), (3,3), (2,2), (1,2)]
+            , testCase "main algorithm" $
+                XX.convexHull [(2,2), (3,2), (3,0), (4,1), (2,1), (3,3), (1,2), (0,0), (3,1), (4,3)]
+                    |> assertEqual "" [(1,2), (3,3), (4,3), (4,1), (3,0), (0,0)]
+            , testCase "inverse algorithm" $
+                XX.convexHull' [(2,2), (3,2), (3,0), (4,1), (2,1), (3,3), (1,2), (0,0), (3,1), (4,3)]
+                    |> assertEqual "" [(3,3), (1,2), (0,0), (3,0), (4,1), (4,3)]
+            , testCase "should result as the same as the transformed inverse algorithm" $
+                XX.convexHull [(2,2), (3,2), (3,0), (4,1), (2,1), (3,3), (1,2), (0,0), (3,1), (4,3)]
+                    |> assertEqual "" (transform $ XX.convexHull' [(2,2), (3,2), (3,0), (4,1), (2,1), (3,3), (1,2), (0,0), (3,1), (4,3)])
+            , testProperty "should result as the same as the transformed inverse algorithm - failing" $
+                property $ do
+                    points <- forAll genPoints
+                    XX.convexHull points === (reverse $ XX.convexHull' points)
             ]
         ]
 
@@ -108,7 +130,8 @@ tests =
 
 
 genString :: MonadGen m => m String
-genString = Gen.list (Range.linear 0 4) Gen.alpha
+genString =
+    Gen.list (Range.linear 0 4) Gen.alpha
 
 
 genTree :: MonadGen m => m (XX.Tree String)
@@ -121,16 +144,28 @@ genTree =
         ]
 
 
-genPoint :: (MonadGen m, Integral a) => m (XX.Point a)
+genPoint :: (MonadGen m, RealFloat a) => m (XX.Point a)
 genPoint =
     liftA2 (,)
-        (Gen.integral (Range.linearFrom 0 (-10) 10))
-        (Gen.integral (Range.linearFrom 0 (-10) 10))
+        (fmap fromInteger $ Gen.integral (Range.linearFrom 0 (-10) 10))
+        (fmap fromInteger $ Gen.integral (Range.linearFrom 0 (-10) 10))
     -- (,)
     --     <$> (Gen.integral (Range.linearFrom 0 (-10) 10))
     --     <*> (Gen.integral (Range.linearFrom 0 (-10) 10))
 
 
-genPointList :: (MonadGen m, Integral a) => m [XX.Point a]
-genPointList =
-    Gen.list (Range.linear 0 10) genPoint
+genPoints :: (MonadGen m, RealFloat a, Ord a, Eq a) => m [XX.Point a]
+genPoints =
+    fmap nub $ Gen.list (Range.linear 0 10) genPoint
+
+
+
+-- Helpers
+
+
+transform :: forall a. (RealFloat a) => [XX.Point a] -> [XX.Point a]
+transform points =
+    reverse $ (\ps -> dropWhile (/= p0) ps ++ takeWhile (/= p0) ps) points
+    where
+        p0 :: XX.Point a
+        p0 = head $ sortWith (swap) points
