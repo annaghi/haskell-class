@@ -26,6 +26,7 @@ library
       RWH.P070
       HW01.CreditCardValidation
       HW01.TowerOfHanoi
+      HW04.E1
   other-modules:
       Paths_haskell_class
   default-extensions: ScopedTypeVariables
@@ -54,7 +55,8 @@ test-suite haskell-class-test
   main-is: Spec.hs
   other-modules:
       Paths_haskell_class
-    , RWH.P070Test
+      RWH.P070Test
+      HW04.E1Test
   hs-source-dirs:
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
