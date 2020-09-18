@@ -8,7 +8,6 @@ main :: IO ()
 main = defaultMain $ testGroup "Tests" $
     [ testGroup "RWH"
         [ RWH.P070Test.tests ]
-    , 
-    testGroup "HW04"
+    , testGroup "HW04"
         [ HW04.E1Test.tests ]
     ]

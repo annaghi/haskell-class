@@ -168,4 +168,4 @@ transform points =
     reverse $ (\ps -> dropWhile (/= p0) ps ++ takeWhile (/= p0) ps) points
     where
         p0 :: EE.Point a
-        p0 = head $ sortWith (swap) points
+        p0 = head $ sortWith swap points

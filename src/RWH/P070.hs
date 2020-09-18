@@ -112,7 +112,7 @@ convexHull :: (Floating a, Ord a) => [Point a] -> [Point a]
 convexHull []     = []
 convexHull [_]    = []
 convexHull [_,_]  = []
-convexHull points = travel $ (\ps -> sortByAngleWithP0 (head ps) (tail ps)) $ sortWith (swap) points
+convexHull points = travel $ (\ps -> sortByAngleWithP0 (head ps) (tail ps)) $ sortWith swap points
 
 
 sortByAngleWithP0 :: (Floating a, Ord a) => Point a -> [Point a] -> [Point a]
@@ -157,7 +157,7 @@ convexHull' :: (Floating a, Ord a) => [Point a] -> [Point a]
 convexHull' []     = []
 convexHull' [_]    = []
 convexHull' [_,_]  = []
-convexHull' points = travel' $ (\ps -> sortByAngleWithP0' (head ps) (tail ps)) $ reverse $ sortWith (swap) points
+convexHull' points = travel' $ (\ps -> sortByAngleWithP0' (head ps) (tail ps)) $ reverse $ sortWith swap points
 
 
 sortByAngleWithP0' :: (Floating a, Ord a) => Point a -> [Point a] -> [Point a]
