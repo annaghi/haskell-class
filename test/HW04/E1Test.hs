@@ -8,21 +8,19 @@ import qualified Hedgehog.Gen as Gen
 import qualified Hedgehog.Range as Range
 import           Utils ((|>))
 
-import qualified HW04.E1 as E1
+import qualified HW04.E1 as EE
 
 
 tests :: TestTree
 tests =
-    testGroup "Homework 04"
-        [ testGroup "Exercise 1"
-            [ testProperty "fun1" $
-                property $ do
-                    list <- forAll genIntegrals
-                    E1.fun1' list === E1.fun1 list
-            , testCase "fun2" $
-                E1.fun2' 27
-                    |> assertEqual "" (E1.fun2 27)
-            ]
+    testGroup "Exercise 1"
+        [ testProperty "fun1'" $
+            property $ do
+                list <- forAll genIntegrals
+                EE.fun1' list === EE.fun1 list
+        , testCase "fun2'" $
+            EE.fun2' 27
+                |> assertEqual "" (EE.fun2 27)
         ]
 
 

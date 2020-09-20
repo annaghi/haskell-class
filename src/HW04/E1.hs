@@ -7,6 +7,7 @@ module HW04.E1
 
 -- https://en.wikipedia.org/wiki/Collatz_conjecture
 
+
 fun1 :: [Integer] -> Integer
 fun1 [] = 1
 fun1 (x:xs)
@@ -15,7 +16,8 @@ fun1 (x:xs)
 
 
 fun1' :: [Integer] -> Integer
-fun1' = product . map (flip (-) 2) . filter even
+fun1' =
+    product . map (subtract 2) . filter even
 
 
 fun2 :: Integer -> Integer
@@ -26,7 +28,8 @@ fun2 n
 
 
 fun2' :: Integer -> Integer
-fun2' = sum . filter even . takeWhile (> 1) . iterate f
+fun2' =
+    sum . filter even . takeWhile (> 1) . iterate f
 
 
 f :: Integer -> Integer
