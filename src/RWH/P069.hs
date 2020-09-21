@@ -24,21 +24,21 @@ mean xs = sum xs / length'' xs
 
 
 averages :: [[a] -> a] -> [a] -> [a]
-averages _ [] = []
-averages [] _ = []
+averages _ []  = []
+averages [] _  = []
 averages fs xs = map ($ xs) fs
 
 
 toPalindrome :: Int -> [a] -> [a]
 toPalindrome random xs =
-    if random `mod` 2 == 0
-        then xs ++ (reverse xs)
-        else xs ++ (tail $ reverse xs)
+    if random `mod` 2 == 0 then
+        xs ++ (reverse xs)
+    else
+        xs ++ (tail $ reverse xs)
 
 
 isPalindrome :: Eq a => [a] -> Bool
-isPalindrome xs =
-    xs == reverse xs
+isPalindrome xs = xs == reverse xs
 
 
 -- TESTS

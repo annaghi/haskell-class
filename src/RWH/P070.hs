@@ -1,7 +1,5 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 
--- https://en.wikipedia.org/wiki/Graham_scan
-
 module RWH.P070
     ( sortByLength
     , intersperse
@@ -22,6 +20,10 @@ module RWH.P070
     , convexHull'
     ) where
 
+
+-- https://en.wikipedia.org/wiki/Graham_scan
+
+
 import Data.List (sortBy)
 import Data.Function (on)
 import GHC.Exts (sortWith)
@@ -35,7 +37,8 @@ sortByLength =
 
 
 intersperse :: forall a. a -> [[a]] -> [a]
-intersperse separator = go
+intersperse separator =
+    go
     where
         go :: [[a]] -> [a]
         go []     = []
@@ -100,7 +103,8 @@ turns :: (Num a, Ord a) => [Point a] -> [Direction]
 turns []           = []
 turns [_]          = []
 turns [_,_]        = []
-turns (a:b:c:rest) = turn a b c : turns (b : c : rest)
+turns (a:b:c:rest) =
+    turn a b c : turns (b : c : rest)
 
 
 reflection1 :: Num a => [Point a] -> [Point a]
@@ -112,7 +116,10 @@ convexHull :: (Floating a, Ord a) => [Point a] -> [Point a]
 convexHull []     = []
 convexHull [_]    = []
 convexHull [_,_]  = []
-convexHull points = travel $ (\ps -> sortByAngleWithP0 (head ps) (tail ps)) $ sortWith swap points
+convexHull points =
+    travel
+    $ (\ps -> sortByAngleWithP0 (head ps) (tail ps))
+    $ sortWith swap points
 
 
 sortByAngleWithP0 :: (Floating a, Ord a) => Point a -> [Point a] -> [Point a]
@@ -157,7 +164,11 @@ convexHull' :: (Floating a, Ord a) => [Point a] -> [Point a]
 convexHull' []     = []
 convexHull' [_]    = []
 convexHull' [_,_]  = []
-convexHull' points = travel' $ (\ps -> sortByAngleWithP0' (head ps) (tail ps)) $ reverse $ sortWith swap points
+convexHull' points =
+    travel'
+    $ (\ps -> sortByAngleWithP0' (head ps) (tail ps))
+    $ reverse
+    $ sortWith swap points
 
 
 sortByAngleWithP0' :: (Floating a, Ord a) => Point a -> [Point a] -> [Point a]

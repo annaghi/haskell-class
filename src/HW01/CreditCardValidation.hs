@@ -15,9 +15,10 @@ validate xs =
     let
         xs' = clean xs
     in
-    if length xs == length xs'
-        then output $ checkIfZero $ remainderBy10 $ sumDigits $ doubleEveryOther xs'
-        else "The input is invalid"
+    if length xs == length xs' then
+        output $ checkIfZero $ remainderBy10 $ sumDigits $ doubleEveryOther xs'
+    else
+        "The input is invalid"
 
 
 clean :: String -> [Int]
@@ -47,9 +48,10 @@ checkIfZero =
 
 output :: Bool -> String
 output b =
-    if b
-        then "Valid!"
-        else "The card number is invalid"
+    if b then
+        "Valid!"
+    else
+        "The card number is invalid"
 
 
 -- TESTS

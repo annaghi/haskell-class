@@ -20,8 +20,8 @@ import qualified RWH.P070 as EE
 
 tests :: TestTree
 tests =
-    testGroup "Page 070"
-        [ testGroup "Exercise 06: sortByLength"
+    testGroup "Page 70"
+        [ testGroup "Exercise 6: sortByLength"
             [ testCase "when the list is empty" $
                 (null $ EE.sortByLength [])
                     |> assertEqual "" True
@@ -36,7 +36,7 @@ tests =
                     xs <- forAll $ Gen.list (Range.linear 0 10) genString
                     (map length . EE.sortByLength) xs === (sort . map length) xs
             ]
-        , testGroup "Exercise 07-08: intersperse"
+        , testGroup "Exercise 7-8: intersperse"
             [ testCase "when the list is empty" $
                 (null $ EE.intersperse ',' [])
                     |> assertEqual "" True
@@ -51,7 +51,7 @@ tests =
                     xs <- forAll $ Gen.list (Range.linear 1 10) genString
                     length (EE.intersperse ',' xs) === length (concat xs) + length xs - 1
             ]
-        , testGroup "Exercise 09: height"
+        , testGroup "Exercise 9: height"
             [ testCase "when the tree is empty" $
                 EE.height EE.Empty
                     |> assertEqual "" (-1)
