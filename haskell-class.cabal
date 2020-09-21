@@ -27,10 +27,11 @@ library
       HW01.CreditCardValidation
       HW01.TowerOfHanoi
       HW04.E1
+      HW04.E2
       HW04.E3
+      HW04.E4
   other-modules:
       Paths_haskell_class
-  default-extensions: ScopedTypeVariables
   hs-source-dirs:
       src
   build-depends:
@@ -59,7 +60,9 @@ test-suite haskell-class-test
       RWH.P070Test
       HW04.Test
       HW04.E1Test
+      HW04.E2Test
       HW04.E3Test
+      HW04.E4Test
   hs-source-dirs:
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
