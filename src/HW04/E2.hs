@@ -5,7 +5,6 @@ module HW04.E2
     , foldTree
     , height
     , balanced
-    , toList
     ) where
 
 
@@ -79,7 +78,7 @@ maxH t1 t2 =
 balanced :: Tree a -> Bool
 balanced Empty = True
 balanced t@(Node _ l _ r) =
-       balanceFactor t <= 1
+    balanceFactor t <= 1
     && balanced l
     && balanced r
 
@@ -92,9 +91,3 @@ balanceFactor (Node _ l _ r) =
         height' :: Tree a -> Integer
         height' Empty = (-1)
         height' (Node _ lt _ rt) = 1 + max (height' lt) (height' rt)
-
-
-toList :: Tree a -> [a]
-toList Empty = []
-toList (Node _ l v r) =
-    toList l ++ (v : toList r)
