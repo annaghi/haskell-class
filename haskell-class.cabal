@@ -26,6 +26,7 @@ library
       RWH.P070
       HW01.CreditCardValidation
       HW01.TowerOfHanoi
+      HW03.Golf
       HW04.E1
       HW04.E2
       HW04.E3
@@ -37,6 +38,9 @@ library
   build-depends:
       base >=4.7 && <5
     , dsp
+    , extra
+    , multiset
+    , containers
   default-language: Haskell2010
 
 executable haskell-class-exe
