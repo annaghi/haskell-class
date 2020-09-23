@@ -30,8 +30,7 @@ histogram xs =
     $ takeWhile (/= "          ")
     $ map (concatMap (\v -> if v > 0 then "*" else " "))
     $ iterate (map (subtract 1))
-    $ map snd
-    $ M.toList
+    $ M.elems
     $ flip M.union (M.fromList $ zip [0..9] (repeat 0))
     $ MS.toMap
     $ MS.fromList
