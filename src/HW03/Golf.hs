@@ -5,7 +5,6 @@ module HW03.Golf
     ) where
 
 
-import Data.Tuple.Extra (uncurry3)
 import Data.Maybe (mapMaybe)
 import qualified Data.MultiSet as MS
 import qualified Data.Map as M
@@ -18,7 +17,7 @@ skips xs =
 
 localMaxima :: [Integer] -> [Integer]
 localMaxima =
-    mapMaybe (uncurry3 (\x y z -> if y > x && y > z then Just y else Nothing))
+    mapMaybe (\(x, y, z) -> if y > x && y > z then Just y else Nothing)
     . (zip3 <*> tail <*> tail . tail)
 
 
