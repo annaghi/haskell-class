@@ -1,8 +1,8 @@
 module HW03.SkipsTest (tests) where
 
-import           Test.Tasty
-import           Test.Tasty.HUnit
-import           Utils ((|>))
+import Test.Tasty
+import Test.Tasty.HUnit
+import Utils ((|>))
 
 import qualified HW03.Golf as EE
 
