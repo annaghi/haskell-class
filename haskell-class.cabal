@@ -62,6 +62,10 @@ test-suite haskell-class-test
   other-modules:
       Paths_haskell_class
       RWH.P070Test
+      HW03.Test
+      HW03.SkipsTest
+      HW03.LocalMaximaTest
+      HW03.HistogramTest
       HW04.Test
       HW04.E1Test
       HW04.E2Test
