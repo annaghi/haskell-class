@@ -5,7 +5,8 @@ module HW03.Golf
     ) where
 
 
-import Data.Tuple.Extra (snd3)
+import Data.Tuple.Extra (uncurry3)
+import Data.Maybe (mapMaybe)
 import qualified Data.MultiSet as MS
 import qualified Data.Map as M
 
@@ -17,11 +18,8 @@ skips xs =
 
 localMaxima :: [Integer] -> [Integer]
 localMaxima =
-    map snd3 . filter (\(x, y, z) -> y > x && y > z) . toTriple
-    where 
-        toTriple :: [Integer] -> [(Integer, Integer, Integer)]
-        toTriple (x:nxt@(y:z:_)) = (x,y,z):toTriple nxt
-        toTriple _ = []
+    mapMaybe (uncurry3 (\x y z -> if y > x && y > z then Just y else Nothing))
+    . (zip3 <*> tail <*> tail . tail)
 
 
 histogram :: [Integer] -> String
