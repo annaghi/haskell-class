@@ -22,17 +22,16 @@ localMaxima =
 
 
 histogram :: [Integer] -> String
-histogram xs =
+histogram =
     unlines
-    $ reverse
-    $ (:) "0123456789"
-    $ (:) "=========="
-    $ takeWhile (/= "          ")
-    $ map (concatMap (\v -> if v > 0 then "*" else " "))
-    $ iterate (map (subtract 1))
-    $ M.elems
-    $ flip M.union (M.fromList $ zip [0..9] (repeat 0))
-    $ MS.toMap
-    $ MS.fromList
-    $ filter (\v -> 0 <= v && v <= 9)
-      xs
+    . reverse
+    . (:) "0123456789"
+    . (:) "=========="
+    . takeWhile (/= "          ")
+    . map (concatMap (\v -> if v > 0 then "*" else " "))
+    . iterate (map (subtract 1))
+    . M.elems
+    . flip M.union (M.fromList $ zip [0..9] (repeat 0))
+    . MS.toMap
+    . MS.fromList
+    . filter (\v -> 0 <= v && v <= 9)
