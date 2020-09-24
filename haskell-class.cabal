@@ -24,6 +24,7 @@ library
       RWH.P060
       RWH.P069
       RWH.P070
+      RWH.P084
       HW01.CreditCardValidation
       HW01.TowerOfHanoi
       HW03.Golf
@@ -62,6 +63,7 @@ test-suite haskell-class-test
   other-modules:
       Paths_haskell_class
       RWH.P070Test
+      RWH.P084Test
       HW03.Test
       HW03.SkipsTest
       HW03.LocalMaximaTest
@@ -81,4 +83,5 @@ test-suite haskell-class-test
     , tasty-hunit
     , tasty-hedgehog
     , hedgehog
+    , listsafe
   default-language: Haskell2010
