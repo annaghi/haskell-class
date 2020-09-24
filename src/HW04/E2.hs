@@ -17,22 +17,22 @@ data Tree a
     deriving (Show, Eq)
 
 
-foldTree :: forall a. [a] -> Tree a
+foldTree :: [a] -> Tree a
 foldTree = foldr insert Empty
 
 
 insert :: forall a. a -> Tree a -> Tree a
 insert x Empty = Node 0 Empty x Empty
-insert x t@(Node _ left _ right)
-    | leftH  < rightH = insertLeft x t
-    | leftH  > rightH = insertRight x t
+insert x tree@(Node _ left _ right)
+    | leftH  < rightH = insertLeft x tree
+    | leftH  > rightH = insertRight x tree
     | leftH == rightH =
         let
             newRight :: Tree a
-            newRight = insertRight x t
+            newRight = insertRight x tree
 
             newLeft :: Tree a
-            newLeft  = insertLeft x t
+            newLeft  = insertLeft x tree
         in
         if height newLeft <= height newRight then
             newLeft
@@ -44,7 +44,7 @@ insert x t@(Node _ left _ right)
 
         rightH :: Integer
         rightH = height right
-insert _ t = t
+insert _ tree = tree
 
 
 insertLeft :: forall a. a -> Tree a -> Tree a
@@ -90,4 +90,4 @@ balanceFactor (Node _ l _ r) =
     where
         height' :: Tree a -> Integer
         height' Empty = (-1)
-        height' (Node _ lt _ rt) = 1 + max (height' lt) (height' rt)
+        height' (Node _ l' _ r') = 1 + max (height' l') (height' r')
