@@ -22,6 +22,8 @@ TOC
 
 ## Functions
 
+### Expressions
+
 - 6 kinds of names
   - variables and (value) constructors for values
   - type variables, type constructors, type classes for type system related entities
@@ -54,12 +56,17 @@ TOC
   ```haskell
     [ x^2 | x <- [1..10] ]                   -- variable binding in list comprehension
   ```
+
+### Functions
+
 - function declaration `name parameters :: typeclass constraints => type`
 - argument
 - function call
 - function with side effects `f :: Int -> IO Int`
 - function without side effects (pure) `f :: Int -> Int`
-- pure function `f ∊ X ⟶ Y, ∀x ∊ X ∃!y ∊ Y: f(x) = y`
+- pure function `f : X ⟶ Y, ∀x ∊ X ∃!y ∊ Y: f(x) = y`
+- total function
+- partial function `f ∊ X ⟶ Y, ∀x ∊ S ⊆ X ∃!y ∊ Y: f(x) = y`
 - referential transparency (pure expressions)
 - functions cannot be equated, compared, ordered, showed
 - lazy evaluation
@@ -83,11 +90,6 @@ TOC
       h $ g $ f $ x = h $ g $ (f $ x) = h $ (g $ (f $ x)) = h (g (f x))    -- right-assoc.
     ```
 - partial function application
-- section an infix function
-  ```haskell
-  (? y) == (\x -> x ? y)
-  (y ?) == (\x -> y ? x)
-  ```
 - `.` function composition, (in Haskell) right-associative
   ```haskell
     g . f = g(f)
@@ -153,6 +155,24 @@ TOC
 
 - currying
 - ...
+
+### Infix notation
+
+- infix function
+- infix value constructor
+- defined as infix can be used as prefix
+- section an infix function
+  ```haskell
+  (? y) == (\x -> x ? y)
+  (y ?) == (\x -> y ? x)
+  ```
+
+### Actions
+
+- action
+- side effect
+- do notation
+- `<-`
 
 ## Types
 
