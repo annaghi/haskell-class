@@ -1,10 +1,12 @@
 module RWH.P084Test (tests) where
 
-import           Test.Tasty
-import           Test.Tasty.Hedgehog
 import           Hedgehog
 import qualified Hedgehog.Gen as Gen
 import qualified Hedgehog.Range as Range
+import           Test.Tasty
+import           Test.Tasty.Hedgehog
+import           Test.Tasty.HUnit
+import           Utils ((|>))
 
 import qualified Data.List.Safe as Safe
 import Data.List.Split (wordsBy)
@@ -36,8 +38,22 @@ tests =
                 property $ do
                     xs <- forAll genString
                     EE.splitWith (== 'a') xs === wordsBy (== 'a') xs
+             , testCase "firstWords: when the list is empty" $
+                EE.firstWords ""
+                    |> assertEqual "" ""
+            , testCase "firstWords: when the list contains a new line character" $
+                EE.firstWords "\n"
+                    |> assertEqual "" ""
+            , testCase "firstWords: when the list contains a single digit" $
+                EE.firstWords "a"
+                    |> assertEqual "" "a"
+            , testProperty "firstWords: when using the helper function firstWords'" $
+                property $ do
+                    xs <- forAll genText
+                    (length . EE.firstWords') xs === (length . filter (== '\n') . compress) xs
             ]
         ]
+
 
 
 -- Generators
@@ -46,3 +62,17 @@ tests =
 genString :: MonadGen m => m String
 genString =
     Gen.list (Range.linear 0 4) Gen.alpha
+
+
+genText :: MonadGen m => m String
+genText =
+    fmap (dropWhile (== '\n'). concatMap (reverse . ('\n' :)))
+    $ Gen.list (Range.linear 0 10) genString
+
+
+
+-- Helpers
+
+
+compress []     = []
+compress (x:xs) = x : (compress $ dropWhile (== x) xs)

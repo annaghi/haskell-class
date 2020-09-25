@@ -6,7 +6,12 @@ module RWH.P084
     , safeInit
     , safeLast
     , splitWith
+    , firstWords
+    , firstWords'
+    , transposeText
     ) where
+
+import Data.List (transpose)
 
 
 safeHead :: [a] -> Maybe a
@@ -48,4 +53,18 @@ splitWith p =
 
                 (x, (y:ys)) ->
                     x : if p y then go ys else go (y:ys)
-    
+
+
+firstWords :: String -> String
+firstWords =
+    unwords . firstWords'
+
+
+firstWords' :: String -> [String]
+firstWords' =
+    filter (/= "") . map (takeWhile (/= ' ')) . lines
+
+
+transposeText :: String -> String
+transposeText =
+    unlines . transpose . lines
