@@ -18,7 +18,12 @@ stack exec haskell-class-exe
 TOC
 
 - Functions
+  - Expressions
+  - Functions
+  - Actions
 - Types
+  - Algebraic data types
+  - Kinds
 
 ## Functions
 
@@ -294,5 +299,18 @@ TOC
 - instantiate a data tpye
 - instance
 - derived instance
+
+- Functor `fmap`
+- Foldable `foldr`
+- Traversable `traverse` + Functor + Foldable
+- Applicative `pure` `liftA2` + Functor
+- Alternative `empty` `<|>` + Applicative
+- Monad `(>>=)` + Applicative
+
+```haskell
+class Functor f where
+   fmap :: (a -> b) -> f a -> f b
+   (<$) :: a -> f b -> f a
+```
 
 ### Kinds
