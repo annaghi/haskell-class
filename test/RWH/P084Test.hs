@@ -7,6 +7,7 @@ import qualified Hedgehog.Gen as Gen
 import qualified Hedgehog.Range as Range
 
 import qualified Data.List.Safe as Safe
+import Data.List.Split (wordsBy)
 
 import qualified RWH.P084 as EE
 
@@ -31,6 +32,10 @@ tests =
                 property $ do
                     xs <- forAll genString
                     EE.safeLast xs === Safe.last xs
+            , testProperty "splitWith" $
+                property $ do
+                    xs <- forAll genString
+                    EE.splitWith (== 'a') xs === wordsBy (== 'a') xs
             ]
         ]
 
