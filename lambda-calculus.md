@@ -50,8 +50,17 @@ Turing complete ( == computable functions == partial recursive functions)
 
 - `(λx.s)t ⟶β s[x := t]` where the free variables of `t` ought to remain free after the β-conversion
 - applying a function to its actual parameter
-  - normal order
-  - applicative order
+  - normal order (reduce the leftmost, outermost redex)
+    ```
+    (λy.z)((λx.xx)(λx.xx)) ⟶β z
+    ⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺
+    ```
+  - applicative order (reduce the leftmost, innermost redex)
+    ```
+    (λy.z)((λx.xx)(λx.xx)) ⟶β (λy.z)((λx.xx)(λx.xx)) ⟶β ...
+           ⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺            ⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺
+    ```
+- if a lambda term has normal form, then normal order reduction will reach it
 - diamond property ⇒ at most one normal form ⇒ β-reduction is confluent
 
 ### η-conversion / reduction
@@ -66,14 +75,14 @@ Turing complete ( == computable functions == partial recursive functions)
 ### Basic combinators
 
 - `I = λx.x` identity
-- `K = T = λxy.x` constant / true
+- `K = T = λxy.x` constant / the true truth value
 - `S = λgfx.gx(fx)` substitute-and-apply
 
 ### Other combinators
 
 - `B = λgfx.g(fx)` function composition `g ∘ f`
 - `C = λfxy.fyx` swap
-- `F = λxy.y` false
+- `F = λxy.y` the false truth value
 - `λfx.fx` application
 - `W = λx.xx` self-application
 - `Ω = WW` self-application of the self-application combinator
@@ -89,3 +98,5 @@ Turing complete ( == computable functions == partial recursive functions)
 - http://www.cs.rpi.edu/academics/courses/spring11/proglang/handouts/lambda-calculus-chapter.pdf
 - https://www21.in.tum.de/teaching/logik/SS15/
 - https://www21.in.tum.de/teaching/lambda/WS1718/
+
+- https://www.cs.umd.edu/class/fall2015/cmsc330/prac/prac8-soln-fall13.pdf
