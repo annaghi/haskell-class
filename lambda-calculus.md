@@ -1,6 +1,6 @@
-# Lambda calculus (untyped)
+# Lambda calculus (pure untyped)
 
-Turing complete ( == computable functions == partial recursive functions)
+Turing complete ( ≡ computable functions ≡ partial recursive functions)
 
 ## Syntax
 
@@ -18,7 +18,9 @@ Turing complete ( == computable functions == partial recursive functions)
   - left-associative
   - higher precedence
   - application (or if `s` is an abstraction then function application)
-  - `t` is the actual parameter of `s`
+  - `t` is the actual parameter of `s` function
+  - `s` is called function, operator, rator
+  - `t` is called actual parameter, operand, rand
 
 ### Variables
 
@@ -30,13 +32,14 @@ Turing complete ( == computable functions == partial recursive functions)
 
 ### Substitution
 
-- substitution `s[x := t]` or `s[t/x]` substitution of `t` for the free occurrences of `x` in `s`
+- `s[x := t]` or `s[t/x]` substitution of `t` for the free occurrences of `x` in `s`
 - left-associative
 
 ## Operational semantics
 
 - defined by reflexive, symmetric, transitive conversion rules
-- in each step of the conversion convert a redex (reducible expression) `(λx.s)t` according to the rules
+- reducible expression (redex) `(λx.s)t`
+- in each step of the conversion convert a redex according to the rules
 - if a lambda term has no redexes then it is in normal form
 
 ### α-conversion / renaming
@@ -75,28 +78,83 @@ Turing complete ( == computable functions == partial recursive functions)
 ### Basic combinators
 
 - `I = λx.x` identity
-- `K = T = λxy.x` constant / the true truth value
+- `K = T = λxy.x` constant / the `true` truth value
 - `S = λgfx.gx(fx)` substitute-and-apply
 
 ### Other combinators
 
 - `B = λgfx.g(fx)` function composition `g ∘ f`
 - `C = λfxy.fyx` swap
-- `F = λxy.y` the false truth value
+- `F = λxy.y` the `false` truth value
 - `λfx.fx` application
 - `W = λx.xx` self-application
 - `Ω = WW` self-application of the self-application combinator
 - currying
 - normal order sequencing
-- applicative-order sequencing
+- `λxy.yx` applicative-order sequencing
 - Y fix point
 - recursion
 
-## References
+# Lambda calculus (impure/applied untyped)
+
+## Lambda terms
+
+- variable
+- constant
+  - numeric constant `0` `1` etc.
+  - logical constant `true` `false`
+  - δ-function `+` `*` `succ` `pred` `and` `or` `pair` `head` `tail` etc.
+- abstraction
+- application
+
+## Conversions
+
+- α-conversion / renaming
+- β-conversion / reduction
+- δ-conversion / reduction
+  - `fc ⟶δ f(c)`
+  - a function application - where the function is a δ-function and the actual parameter is a constant - can be substitute with the result of the δ-function applied on the constant
+  - `+ 2 3 ⟶δ 5`
+  - `not true ⟶δ false`
+- η-conversion / reduction
+
+## Constants, δ-functions
+
+### Logical constants
+
+- `true = λxy.x`
+- `false = λxy.y`
+- `not = λx.x false true`
+- `and = λxy.xy false`
+- `or = λxy.x true y`
+
+### Pair constants
+
+- `pair = λxyz.zxy`
+- `first = λx.x true`
+- `second = λx.x false`
+
+### List constants
+
+- `cons = λxy.pair false (pair xy)`
+- `nil = pair true true = λx.true`
+- `head = λx.first(second x)`
+- `tail = λx.second(second x)`
+
+### Church numbers
+
+- `0 = λfx.x`
+- `1 = λfx.f(x)`
+- `2 = λfx.f(f(x))`
+- `cₙ = λfx.fⁿ(x)`
+- `cₘ + cₙ = λxy.(cₘ x)((cₙ x) y)`
+- `cₘ * cₙ = λx.(cₘ (cₙ x))`
+
+# References
 
 - https://plato.stanford.edu/entries/lambda-calculus/
 - http://www.cs.rpi.edu/academics/courses/spring11/proglang/handouts/lambda-calculus-chapter.pdf
 - https://www21.in.tum.de/teaching/logik/SS15/
 - https://www21.in.tum.de/teaching/lambda/WS1718/
 
-- https://www.cs.umd.edu/class/fall2015/cmsc330/prac/prac8-soln-fall13.pdf
+* https://www.cs.umd.edu/class/fall2015/cmsc330/prac/prac8-soln-fall13.pdf
