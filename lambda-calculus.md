@@ -77,26 +77,75 @@ Turing complete ( ≡ computable functions ≡ partial recursive functions)
 
 ### Basic combinators
 
-- `I = λx.x` identity
-- `K = λxy.x` constant
-- `S = λgfx.gx(fx)` substitute-and-apply
+- `I := λx.x` identity
+- `K := λxy.x` constant
+- `S := λgfx.gx(fx)` substitute-and-apply
 
 ### Other combinators
 
-- `B = λgfx.g(fx)` function composition `g ∘ f`
-- `C = λfxy.fyx` swap
+- `B := λgfx.g(fx)` function composition `g ∘ f`
+- `C := λfxy.fyx` swap
 - `λfx.fx` application
-- `W = λx.xx` self-application
-- `Ω = WW` self-application of the self-application combinator
-- currying
+- `W := λxy.xyy`
+- `ω := λx.xx` self-application
+- `Ω := ωω` self-application of the self-application combinator
 - `λxy.(λz.yx)` normal order sequencing
 - `λxy.yx` applicative-order sequencing
-- Y fixpoint
-- recursion
+- `Y := λg.(λy.g(yy))(λy.g(yy))` Curry's fixed-point combinator
+- `Θ := (λxy.y(xxy))(λxy.y(xxy))` Turing's fixed-point combinator
+- currying
+
+### Fixed-point combinators
+
+- `F` is a fixed-point of `t` if `F = tF`
+  - `(λx.x)u ⟶β u` all `u` is fixed-point of `λx.x`
+  - `(λx.* x x)0 ⟶β * 0 0 ⟶δ 0`
+  - `(λx.* x x)1 ⟶β * 1 1 ⟶δ 1`
+- `Y` is a fixed-point combinator if `Yt = t(Yt)`
+  - `Y = λg.(λy.g(yy))(λy.g(yy))` Curry's fixed-point combinator
+  - `Θ = (λxy.y(xxy))(λxy.y(xxy))` Turing's fixed-point combinator
+  - there are many other fixed-point combinators, e.g. Klop's
+  ```
+    Yᴷ = (❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤)
+    where ❤ = λabcdefghijklmnopqstuvwxyzr.(r(thisisafixedpointcombinator))
+  ```
+
+### Recursion
+
+Let's define `n!` in lambda calculus!
+
+```
+fac(n) := if (n = 0) then 1 else (n * fac(n - 1))
+```
+
+rewritten to lambda calculus
+
+```
+FAC := λn.if(= n 0)1(* n (FAC(- n 1)))
+```
+
+but this would be an infinite substitution, so let assume that the right-hand side is an application
+
+```
+H := λf.(λn.if(= n 0)1(\* n (f(- n 1))))
+FAC = H FAC
+```
+
+Now the recursion has gone, and `FAC` is a fixed-point of `H`, so with
+
+```
+FAC := Y H
+```
+
+we can define `FAC` without recursion:
+
+```
+Y H = H(Y H)
+```
 
 # Lambda calculus (impure/applied untyped)
 
-- some combinators can be considered as constants and functions on constants
+- some combinators can be considered as constants or functions on constants
 
 ## Lambda terms
 
@@ -123,41 +172,41 @@ Turing complete ( ≡ computable functions ≡ partial recursive functions)
 
 ### Logical constants
 
-- `true = λxy.x`
-- `false = λxy.y`
-- `if = λpxy.pxy`
-  - `if true t u = t`
-  - `if false t u = u`
-- `not = λx.x false true`
-- `and = λxy.xy false`
-- `or = λxy.x true y`
+- `true := λxy.x`
+- `false := λxy.y`
+- `if := λpxy.pxy`
+  - `if true t u ⟶β t`
+  - `if false t u ⟶β u`
+- `not := λx.x false true`
+- `and := λxy.xy false`
+- `or := λxy.x true y`
 
 ### Tuple constants
 
-- `pair = λxyz.zxy`
-  - `pair tu = λz.ztu = (t,u)`
-- `first = λx.x true`
-- `second = λx.x false`
-- `tuple = λx₁x₂…xₙz.zx₁x₂…xₙ`
-- `selectᵢ = λx.x(λx₁x₂…xₙ.xᵢ) (1 <= i <= n)`
+- `pair := λxyz.zxy`
+  - `pair tu = λz.ztu =: (t,u)`
+- `first := λx.x true`
+- `second := λx.x false`
+- `tuple := λx₁x₂…xₙz.zx₁x₂…xₙ`
+- `selectᵢ := λx.x(λx₁x₂…xₙ.xᵢ) (1 <= i <= n)`
 
 ### List constants
 
-- `cons = λxy.pair false (pair xy)`
-- `nil = pair true true = λx.true`
-- `empty = first`
-- `head = λx.first(second x)`
-- `tail = λx.second(second x)`
+- `cons := λxy.pair false (pair xy)`
+- `nil := pair true true = λx.true`
+- `empty := first`
+- `head := λx.first(second x)`
+- `tail := λx.second(second x)`
 
-### Church numbers
+### Church numerals
 
-- `0 = λfx.x`
-- `1 = λfx.f(x)`
-- `2 = λfx.f(f(x))`
-- `cₙ = λfx.fⁿ(x)`
-- `succ = λnfx.f(nfx)`
-- `+ cₘ cₙ = λxy.(cₘ x)((cₙ x) y)`
-- `* cₘ cₙ = λx.(cₘ (cₙ x))`
+- `0 := λfx.x`
+- `1 := λfx.f(x)`
+- `2 := λfx.f(f(x))`
+- `cₙ := λfx.fⁿ(x)`
+- `succ := λnfx.f(nfx)`
+- `+ cₘ cₙ := λxy.(cₘ x)((cₙ x) y)`
+- `* cₘ cₙ := λx.(cₘ (cₙ x))`
 
 # References
 
