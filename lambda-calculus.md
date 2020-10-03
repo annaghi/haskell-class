@@ -78,24 +78,25 @@ Turing complete ( ≡ computable functions ≡ partial recursive functions)
 ### Basic combinators
 
 - `I = λx.x` identity
-- `K = T = λxy.x` constant / the `true` truth value
+- `K = λxy.x` constant
 - `S = λgfx.gx(fx)` substitute-and-apply
 
 ### Other combinators
 
 - `B = λgfx.g(fx)` function composition `g ∘ f`
 - `C = λfxy.fyx` swap
-- `F = λxy.y` the `false` truth value
 - `λfx.fx` application
 - `W = λx.xx` self-application
 - `Ω = WW` self-application of the self-application combinator
 - currying
-- normal order sequencing
+- `λxy.(λz.yx)` normal order sequencing
 - `λxy.yx` applicative-order sequencing
-- Y fix point
+- Y fixpoint
 - recursion
 
 # Lambda calculus (impure/applied untyped)
+
+- some combinators can be considered as constants and functions on constants
 
 ## Lambda terms
 
@@ -103,7 +104,7 @@ Turing complete ( ≡ computable functions ≡ partial recursive functions)
 - constant
   - numeric constant `0` `1` etc.
   - logical constant `true` `false`
-  - δ-function `+` `*` `succ` `pred` `and` `or` `pair` `head` `tail` etc.
+  - δ-function `+` `*` `=` `succ` `pred` `and` `or` `pair` `head` `tail` etc.
 - abstraction
 - application
 
@@ -124,20 +125,27 @@ Turing complete ( ≡ computable functions ≡ partial recursive functions)
 
 - `true = λxy.x`
 - `false = λxy.y`
+- `if = λpxy.pxy`
+  - `if true t u = t`
+  - `if false t u = u`
 - `not = λx.x false true`
 - `and = λxy.xy false`
 - `or = λxy.x true y`
 
-### Pair constants
+### Tuple constants
 
 - `pair = λxyz.zxy`
+  - `pair tu = λz.ztu = (t,u)`
 - `first = λx.x true`
 - `second = λx.x false`
+- `tuple = λx₁x₂…xₙz.zx₁x₂…xₙ`
+- `selectᵢ = λx.x(λx₁x₂…xₙ.xᵢ) (1 <= i <= n)`
 
 ### List constants
 
 - `cons = λxy.pair false (pair xy)`
 - `nil = pair true true = λx.true`
+- `empty = first`
 - `head = λx.first(second x)`
 - `tail = λx.second(second x)`
 
@@ -147,8 +155,9 @@ Turing complete ( ≡ computable functions ≡ partial recursive functions)
 - `1 = λfx.f(x)`
 - `2 = λfx.f(f(x))`
 - `cₙ = λfx.fⁿ(x)`
-- `cₘ + cₙ = λxy.(cₘ x)((cₙ x) y)`
-- `cₘ * cₙ = λx.(cₘ (cₙ x))`
+- `succ = λnfx.f(nfx)`
+- `+ cₘ cₙ = λxy.(cₘ x)((cₙ x) y)`
+- `* cₘ cₙ = λx.(cₘ (cₙ x))`
 
 # References
 
