@@ -1,6 +1,8 @@
-# Lambda calculus (pure untyped)
+# Lambda calculus
 
 Turing complete ( ≡ computable functions ≡ partial recursive functions)
+
+# I. Pure untyped lambda calculus
 
 ## Syntax
 
@@ -91,61 +93,13 @@ Turing complete ( ≡ computable functions ≡ partial recursive functions)
 - `Ω := ωω` self-application of the self-application combinator
 - `λxy.(λz.yx)` normal order sequencing
 - `λxy.yx` applicative-order sequencing
-- `Y := λg.(λy.g(yy))(λy.g(yy))` Curry's fixed-point combinator
+- `Y := λf.(λy.f(yy))(λy.f(yy))` Curry's fixed-point combinator
 - `Θ := (λxy.y(xxy))(λxy.y(xxy))` Turing's fixed-point combinator
 - currying
 
-### Fixed-point combinators
+# II. Impure/applied untyped lambda calculus
 
-- `F` is a fixed-point of `t` if `F = tF`
-  - `(λx.x)u ⟶β u` all `u` is fixed-point of `λx.x`
-  - `(λx.* x x)0 ⟶β * 0 0 ⟶δ 0`
-  - `(λx.* x x)1 ⟶β * 1 1 ⟶δ 1`
-- `Y` is a fixed-point combinator if `Yt = t(Yt)`
-  - `Y = λg.(λy.g(yy))(λy.g(yy))` Curry's fixed-point combinator
-  - `Θ = (λxy.y(xxy))(λxy.y(xxy))` Turing's fixed-point combinator
-  - there are many other fixed-point combinators, e.g. Klop's
-  ```
-    Yᴷ = (❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤)
-    where ❤ = λabcdefghijklmnopqstuvwxyzr.(r(thisisafixedpointcombinator))
-  ```
-
-### Recursion
-
-Let's define `n!` in lambda calculus!
-
-```
-fac(n) := if (n = 0) then 1 else (n * fac(n - 1))
-```
-
-rewritten to lambda calculus
-
-```
-FAC := λn.if(= n 0)1(* n (FAC(- n 1)))
-```
-
-but this would be an infinite substitution, so let assume that the right-hand side is an application
-
-```
-H := λf.(λn.if(= n 0)1(\* n (f(- n 1))))
-FAC = H FAC
-```
-
-Now the recursion has gone, and `FAC` is a fixed-point of `H`, so with
-
-```
-FAC := Y H
-```
-
-we can define `FAC` without recursion:
-
-```
-Y H = H(Y H)
-```
-
-# Lambda calculus (impure/applied untyped)
-
-- some combinators can be considered as constants or functions on constants
+Some combinators can be considered as constants or functions on constants.
 
 ## Lambda terms
 
@@ -207,6 +161,60 @@ Y H = H(Y H)
 - `succ := λnfx.f(nfx)`
 - `+ cₘ cₙ := λxy.(cₘ x)((cₙ x) y)`
 - `* cₘ cₙ := λx.(cₘ (cₙ x))`
+
+## Recursion
+
+Recursive function can be defined non-recursive in lambda calculus.
+
+### Fixed-point combinators
+
+- `t` is a fixed-point of `s` if `t = st`
+  - `(λx.x)t ⟶β t` all `t` is fixed-point of `λx.x`
+  - `(λx.* x x)0 ⟶β * 0 0 ⟶δ 0`
+  - `(λx.* x x)1 ⟶β * 1 1 ⟶δ 1`
+- `Y` is a fixed-point combinator if `Yt = t(Yt)`
+  - `Y = λf.(λy.f(yy))(λy.f(yy))` Curry's fixed-point combinator
+  - `Θ = (λxy.y(xxy))(λxy.y(xxy))` Turing's fixed-point combinator
+  - there are many other fixed-point combinators, e.g. Klop's
+  ```
+    Yᴷ := (❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤)
+    where ❤ := λabcdefghijklmnopqstuvwxyzr.(r(thisisafixedpointcombinator))
+  ```
+
+### Recursive functions
+
+Let's define `n!` in lambda calculus!
+
+```
+fac(n) := if (n = 0) then 1 else (n * fac(n - 1))
+```
+
+rewritten to lambda calculus:
+
+```
+FAC := λn.if(= n 0)1(* n (FAC(- n 1)))
+```
+
+but this would be an infinite substitution, so let assume that the right-hand side is an application:
+
+```
+F := λf.(λn.if(= n 0)1(* n (f(- n 1))))
+FAC = F FAC
+```
+
+Now the recursion has gone, and `FAC` is a fixed-point of `F`, so with
+
+```
+FAC := Y F
+```
+
+we can define `FAC` without recursion:
+
+```
+Y F = F(Y F)
+```
+
+# III. Typed lambda calculus
 
 # References
 
