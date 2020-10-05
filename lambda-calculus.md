@@ -118,8 +118,8 @@ Some combinators can be considered as constants or functions on constants.
 - δ-conversion / reduction
   - `fc ⟶δ f(c)`
   - a function application - where the function is a δ-function and the actual parameter is a constant - can be substitute with the result of the δ-function applied on the constant
-  - `+ 2 3 ⟶δ 5`
   - `not true ⟶δ false`
+  - `+ 2 3 ⟶δ 5`
 - η-conversion / reduction
 
 ## Constants, δ-functions
@@ -164,7 +164,7 @@ Some combinators can be considered as constants or functions on constants.
 
 ## Recursion
 
-Recursive function can be defined non-recursive in lambda calculus.
+Recursive functions can be defined non-recursive in lambda calculus.
 
 ### Fixed-point combinators
 
@@ -175,7 +175,7 @@ Recursive function can be defined non-recursive in lambda calculus.
 - `Y` is a fixed-point combinator if `Yt = t(Yt)`
   - `Y = λf.(λy.f(yy))(λy.f(yy))` Curry's fixed-point combinator
   - `Θ = (λxy.y(xxy))(λxy.y(xxy))` Turing's fixed-point combinator
-  - there are many other fixed-point combinators, e.g. Klop's
+  - there are many other fixed-point combinators, e.g. Klop's:
   ```
     Yᴷ := (❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤)
     where ❤ := λabcdefghijklmnopqstuvwxyzr.(r(thisisafixedpointcombinator))
@@ -195,7 +195,7 @@ rewritten to lambda calculus:
 FAC := λn.if(= n 0)1(* n (FAC(- n 1)))
 ```
 
-but this would be an infinite substitution, so let assume that the right-hand side is an application:
+but this would be an infinite substitution, so let assume that the right-hand side is an application such as:
 
 ```
 F := λf.(λn.if(= n 0)1(* n (f(- n 1))))
@@ -216,11 +216,8 @@ Y F = F(Y F)
 
 # III. Typed lambda calculus
 
-# References
+# Exercises
 
-- https://plato.stanford.edu/entries/lambda-calculus/
-- http://www.cs.rpi.edu/academics/courses/spring11/proglang/handouts/lambda-calculus-chapter.pdf
-- https://www21.in.tum.de/teaching/logik/SS15/
-- https://www21.in.tum.de/teaching/lambda/WS1718/
-
-* https://www.cs.umd.edu/class/fall2015/cmsc330/prac/prac8-soln-fall13.pdf
+- https://www.cs.umd.edu/class/fall2015/cmsc330/prac/prac8-soln-fall13.pdf
+- https://pages.github-dev.cs.illinois.edu/cs421-sp18/web/handouts/lambda-calculus.pdf
+- https://github.com/hradecek/Lambda-Calculus-and-Combinators/blob/master/01-Lambda%20Calculus.md
