@@ -1,12 +1,12 @@
 module RWH.P084Test (tests) where
 
+import           Test.Tasty
+import           Test.Tasty.HUnit
+import           Utils ((|>))
+import           Test.Tasty.Hedgehog
 import           Hedgehog
 import qualified Hedgehog.Gen as Gen
 import qualified Hedgehog.Range as Range
-import           Test.Tasty
-import           Test.Tasty.Hedgehog
-import           Test.Tasty.HUnit
-import           Utils ((|>))
 
 import qualified Data.List.Safe as Safe
 import Data.List.Split (wordsBy)
@@ -66,7 +66,7 @@ genString =
 
 genText :: MonadGen m => m String
 genText =
-    fmap (dropWhile (== '\n'). concatMap (reverse . ('\n' :)))
+    fmap (dropWhile (== '\n') . concatMap (reverse . ('\n' :)))
     $ Gen.list (Range.linear 0 10) genString
 
 
