@@ -93,7 +93,7 @@ Turing complete ( ≡ computable functions ≡ partial recursive functions)
 - `Ω := ωω` self-application of the self-application combinator
 - `λxy.(λz.yx)` normal order sequencing
 - `λxy.yx` applicative-order sequencing
-- `Y := λf.(λy.f(yy))(λy.f(yy))` Curry's fixed-point combinator
+- `Y := λf.(λx.f(xx))(λx.f(xx))` Curry's fixed-point combinator
 - `Θ := (λxy.y(xxy))(λxy.y(xxy))` Turing's fixed-point combinator
 - currying
 
@@ -173,8 +173,8 @@ Recursive functions can be defined non-recursive in lambda calculus.
   - `(λx.* x x)0 ⟶β * 0 0 ⟶δ 0`
   - `(λx.* x x)1 ⟶β * 1 1 ⟶δ 1`
 - `Y` is a fixed-point combinator if `Yt = t(Yt)`
-  - `Y = λf.(λy.f(yy))(λy.f(yy))` Curry's fixed-point combinator
-  - `Θ = (λxy.y(xxy))(λxy.y(xxy))` Turing's fixed-point combinator
+  - `Y := λf.(λx.f(xx))(λx.f(xx))` Curry's fixed-point combinator
+  - `Θ := (λxy.y(xxy))(λxy.y(xxy))` Turing's fixed-point combinator
   - there are many other fixed-point combinators, e.g. Klop's:
   ```
     Yᴷ := (❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤)
