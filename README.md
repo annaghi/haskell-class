@@ -13,7 +13,8 @@ stack exec haskell-class-exe
 - https://www.seas.upenn.edu/~cis194/spring13/
 - http://learnyouahaskell.com/
 - http://book.realworldhaskell.org/
-- https://www.logicmatters.net/resources/pdfs/GentleIntro.pdf
+
+* https://www.logicmatters.net/resources/pdfs/GentleIntro.pdf
 
 TOC
 
@@ -23,6 +24,7 @@ TOC
   - Actions
 - Types
   - Algebraic data types
+  - Typeclasses
   - Kinds
 
 ## Functions
@@ -95,6 +97,8 @@ TOC
       h $ g $ f $ x = h $ g $ (f $ x) = h $ (g $ (f $ x)) = h (g (f x))    -- right-assoc.
     ```
 - partial function application
+  - currying
+  - sectioning
 - `.` function composition, (in Haskell) right-associative
   ```haskell
     g . f = g(f)
@@ -139,7 +143,7 @@ TOC
     []    [x, y]    (x:xs)    (x, y, z)
   ```
 - nested pattern matching
-- as pattern `name@pattern`
+- as pattern `name@pattern` (does not allocate memory for pattern again)
 - wild-card `_`
 
 ### Conditionals
@@ -153,8 +157,39 @@ TOC
 ### Recursion
 
 - recursion
-- edge condition
+- structural recursion
+  - base case (terminating case, edge condition)
+  - inductive case (recursive case)
+- tail recursion
+- tail call optimization
+- primitive recursive functions (can express using ˙foldr˙)
 - mutual recursion
+
+### Fold
+
+- `foldr`, `foldl'`
+- universal property (primitive recursive function ⟺ foldr)
+  ```haskell
+  g []     = z
+  g (x:xs) = f x (g xs)   ⟺   g = foldr f z
+  ```
+- fusion property
+  ```haskell
+  h . foldr g v = foldr f z
+  ```
+- fold-map fusion
+  ```haskell
+  foldr f z . map g = foldr (f . g) z
+  ```
+- scan lemma
+  ```haskell
+  map (foldr f z) . tails = scanr f z
+  map (foldl f z) . inits = scanl f z
+  ```
+- map-filter
+  ```haskell
+  filter p . map f = map f . filter (p . f)
+  ```
 
 ### Anonymous functions
 
