@@ -26,6 +26,7 @@ library
       RWH.P070
       RWH.P084
       RWH.P097
+      RWH.P098
       HW01.CreditCardValidation
       HW01.TowerOfHanoi
       HW03.Golf
@@ -43,6 +44,7 @@ library
     , extra
     , multiset
     , containers
+    , text-latin1
   default-language: Haskell2010
 
 executable haskell-class-exe
@@ -66,6 +68,7 @@ test-suite haskell-class-test
       RWH.P070Test
       RWH.P084Test
       RWH.P097Test
+      RWH.P098Test
       HW03.Test
       HW03.SkipsTest
       HW03.LocalMaximaTest
