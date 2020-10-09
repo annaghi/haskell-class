@@ -37,7 +37,11 @@ Transform a primitive recursive function to foldr
 takeWhile _ []     = z
 takeWhile p (x:ys) = f x (takeWhile p ys)      ⟺      takeWhile p = foldr f z
 
-takeWhile _ [] = []
+
+takeWhile _ [] = z
+⟺ takeWhile _ [] = []
+⟹ z = []
+
 takeWhile p (x:ys) = f x (takeWhile p ys)
 ⟺ if p x then x : takeWhile p ys else [] = f x (takeWhile p ys)  (as := takeWhile p ys)
 ⟺ if p x then x : as else [] = f x as
