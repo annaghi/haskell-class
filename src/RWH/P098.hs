@@ -43,9 +43,9 @@ takeWhile _ [] = z
 ⟹ z = []
 
 takeWhile p (x:ys) = f x (takeWhile p ys)
-⟺ if p x then x : takeWhile p ys else [] = f x (takeWhile p ys)  (as := takeWhile p ys)
+⟺ if p x then x : takeWhile p ys else [] = f x (takeWhile p ys)     // as := takeWhile p ys
 ⟺ if p x then x : as else [] = f x as
-⟹ g = \x as -> if p x then x : as else []
+⟹ f = \x as -> if p x then x : as else []
 -}
 takeWhileFoldr :: (a -> Bool) -> [a] -> [a]
 takeWhileFoldr _ [] = []
@@ -83,7 +83,7 @@ groupByFoldr2 p ls =
                 (e : x : ys) : as
             else
                 [e] : ((x : ys) : as)
-    ) [[(last ls)]] (init ls)
+        ) [[(last ls)]] (init ls)
 
 
 groupByFoldl :: (a -> a -> Bool) -> [a] -> [[a]]
