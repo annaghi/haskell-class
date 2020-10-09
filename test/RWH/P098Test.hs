@@ -17,17 +17,17 @@ tests =
         [ testGroup "Exercise 6"
             [ testProperty "concatFoldr" $
                 property $ do
-                    xs <- forAll genStringList
+                    xs <- forAll genStrings
                     EE.concatFoldr xs === concat xs
             ]
         , testGroup "Exercise 7"
             [ testProperty "takeWhileRecursive" $
                 property $ do
-                    xs <- forAll genStringList
+                    xs <- forAll genStrings
                     EE.takeWhileRecursive (not . null) xs === takeWhile (not . null) xs
             , testProperty "takeWhileFoldr" $
                 property $ do
-                    xs <- forAll genStringList
+                    xs <- forAll genStrings
                     EE.takeWhileFoldr (not . null) xs === takeWhile (not . null) xs
             ]
         , testGroup "Exercise 8"
@@ -68,7 +68,7 @@ tests =
                     EE.wordsFoldr xs === words xs
             , testProperty "unlinesFoldr" $
                 property $ do
-                    xs <- forAll genStringList
+                    xs <- forAll genStrings
                     EE.unlinesFoldr xs === unlines xs
             ]
         ]
@@ -84,6 +84,6 @@ genString =
     Gen.list (Range.linear 0 100) Gen.alpha
 
 
-genStringList :: MonadGen m => m [String]
-genStringList =
+genStrings :: MonadGen m => m [String]
+genStrings =
     Gen.list (Range.linear 0 20) genString
