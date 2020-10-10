@@ -16,11 +16,11 @@ asInt_fold_1 =
 
 asInt_fold_2 :: String -> Int
 asInt_fold_2 "" = 0
-asInt_fold_2 (x:xs)
+asInt_fold_2 ls@(x:xs)
     | x == '-' =
         (-1) * asInt_fold_1 xs
     | otherwise =
-        asInt_fold_1 (x:xs)
+        asInt_fold_1 ls
 
 
 asInt_fold_3 :: String -> Int
@@ -28,7 +28,7 @@ asInt_fold_3 "" =
     raiseError
 asInt_fold_3 "-" =
     raiseError
-asInt_fold_3 l@(x:xs)
+asInt_fold_3 ls@(x:xs)
     | (x /= '-' && (not . isDigit) x) || any (not . isDigit) xs =
         raiseError
     | x == '-' =
@@ -37,10 +37,10 @@ asInt_fold_3 l@(x:xs)
         else
             (-1) * asInt_fold_1 xs
     | otherwise =
-        if greaterThanMaxBound l then
+        if greaterThanMaxBound ls then
             raiseError
         else
-            asInt_fold_1 l
+            asInt_fold_1 ls
 
 
 type ErrorMessage =
@@ -52,7 +52,7 @@ asInt_either "" =
     Left "empty string"
 asInt_either "-" =
     Left "the string is just a minus sign"
-asInt_either l@(x:xs)
+asInt_either ls@(x:xs)
     | (x /= '-' && (not . isDigit) x) || any (not . isDigit) xs =
         Left "the string contains non-digits"
     | x == '-' =
@@ -61,10 +61,10 @@ asInt_either l@(x:xs)
         else
             Right $ (-1) * asInt_fold_1 xs
     | otherwise =
-        if greaterThanMaxBound l then
+        if greaterThanMaxBound ls then
             Left "the string is greater than maxBound"
         else
-            Right $ asInt_fold_1 l
+            Right $ asInt_fold_1 ls
 
 
 
@@ -85,7 +85,9 @@ greaterThanMaxBound =
 
 outOfBound :: String -> String -> Bool
 outOfBound bound xs
-    | length xs > length bound = True
-    | length xs < length bound || xs == bound = False
+    | length xs > length bound =
+        True
+    | length xs < length bound || xs == bound =
+        False
     | otherwise =
         foldr (\(b, x) a -> x >= b && a) True $ zip bound xs

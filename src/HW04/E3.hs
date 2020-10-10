@@ -41,7 +41,7 @@ myFoldl' f [] = v
 
 myFoldl' f (y:ys) = g y (myFoldl' f ys)
 ⟺ myFoldl' f (y:ys) base' = g y (myFoldl' f ys) base'
-⟺ myFoldl' f ys (f base' y) = g y (myFoldl' f ys) base' (h := myFoldl' f ys)
+⟺ myFoldl' f ys (f base' y) = g y (myFoldl' f ys) base'     // h := myFoldl' f ys
 ⟺ h (f base' y) = g y h base'
 ⟹ g = \y h base' -> h (f base' y)
 ⟹ myFoldl' = foldr (\y h base' -> h (f base' y)) (\base' -> base')
