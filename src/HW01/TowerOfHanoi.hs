@@ -34,7 +34,9 @@ hanoi4 n k o d t t' = hanoi4 (n - k) k o t t' d ++ hanoi k o d t' ++ hanoi4 (n -
 hanoiN :: Int -> [Peg] -> [Move]
 hanoiN 1 (o:d:_) = [(o, d)]
 hanoiN n (o:d:t:ts) = hanoiN k (o:t:d:ts) ++ hanoiN (n - k) (o:d:ts) ++ hanoiN k (t:d:o:ts)
-    where k
+    where
+        k :: Int
+        k
             | null ts   = n - 1
             | otherwise = n - round ((sqrt :: Double -> Double) (fromIntegral (2 * n + 1))) + 1
 hanoiN _ _ = []

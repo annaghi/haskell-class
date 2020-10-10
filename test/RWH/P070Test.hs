@@ -65,6 +65,7 @@ tests =
                 property $ do
                     tree <- forAll genTree
                     let
+                        count :: Num a => a
                         count = EE.count tree
                     Hedgehog.assert $ EE.height tree <= count - 1
                     Hedgehog.assert $ EE.height tree >= floor (logBase 2 count)

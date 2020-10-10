@@ -53,12 +53,12 @@ takeWhileFoldr p xs =
     foldr (\x as -> if p x then x : as else []) [] xs
 
 
-groupByRecursive :: (a -> a -> Bool) -> [a] -> [[a]]
+groupByRecursive :: forall a. (a -> a -> Bool) -> [a] -> [[a]]
 groupByRecursive _ [] = []
 groupByRecursive p (x:ys) =
     (x : prefix) : groupByRecursive p remainder
     where
-        (prefix, remainder) = span (p x) ys
+        ((prefix, remainder) :: ([a], [a])) = span (p x) ys
 
 
 groupByFoldr :: (a -> a -> Bool) -> [a] -> [[a]]
@@ -89,14 +89,14 @@ groupByFoldr2 p ls =
 groupByFoldl :: (a -> a -> Bool) -> [a] -> [[a]]
 groupByFoldl _ [] = []
 groupByFoldl p (h:ts) =
-        reverse
-        $ foldl'
-            (\((x:ys):as) e ->
-                if p e x then
-                    (e : x : ys) : as
-                else
-                    [e] : ((x : ys) : as)
-            ) [[h]] ts
+    reverse
+    $ foldl'
+        (\((x:ys):as) e ->
+            if p e x then
+                (e : x : ys) : as
+            else
+                [e] : ((x : ys) : as)
+        ) [[h]] ts
 
 
 anyFoldr :: (a -> Bool) -> [a] -> Bool

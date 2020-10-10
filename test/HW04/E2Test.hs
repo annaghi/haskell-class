@@ -20,6 +20,7 @@ tests =
             property $ do
                 list <- forAll genIntegrals
                 let
+                    heightOfBinaryBalancedTree :: Integral a => [a] -> a
                     heightOfBinaryBalancedTree = floor . logBase 2 . fromIntegral . length
                 Hedgehog.assert $ (EE.height $ EE.foldTree list) == heightOfBinaryBalancedTree list
         ]

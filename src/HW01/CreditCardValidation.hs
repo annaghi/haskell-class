@@ -13,6 +13,7 @@ import Data.Char (digitToInt)
 validate :: String -> String
 validate xs =
     let
+        xs' :: [Int]
         xs' = clean xs
     in
     if length xs == length xs' then
