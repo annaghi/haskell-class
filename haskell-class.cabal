@@ -69,6 +69,7 @@ test-suite haskell-class-test
       RWH.P084Test
       RWH.P097Test
       RWH.P098Test
+      RWH.Test
       HW03.Test
       HW03.SkipsTest
       HW03.LocalMaximaTest
