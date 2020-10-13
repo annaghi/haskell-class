@@ -27,6 +27,10 @@ library
       RWH.P084
       RWH.P097
       RWH.P098
+      OBE.P023
+      OBE.P024
+      OBE.P025
+      OBE.P036
       HW01.CreditCardValidation
       HW01.TowerOfHanoi
       HW03.Golf
@@ -45,6 +49,7 @@ library
     , multiset
     , containers
     , text-latin1
+    , lens
   default-language: Haskell2010
 
 executable haskell-class-exe
@@ -70,6 +75,9 @@ test-suite haskell-class-test
       RWH.P097Test
       RWH.P098Test
       RWH.Test
+      OBE.P025Test
+      OBE.P036Test
+      OBE.Test
       HW03.Test
       HW03.SkipsTest
       HW03.LocalMaximaTest
@@ -92,4 +100,5 @@ test-suite haskell-class-test
     , listsafe
     , split
     , hspec-expectations
+    , lens
   default-language: Haskell2010
