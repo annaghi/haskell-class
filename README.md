@@ -143,7 +143,7 @@ TOC
     []    [x, y]    (x:xs)    (x, y, z)
   ```
 - nested pattern matching
-- as pattern `name@pattern` (does not allocate memory for pattern again)
+- as pattern `name@pattern` (does not allocate memory for 'name' again, but it do for 'pattern')
 - wild-card `_`
 
 ### Conditionals
@@ -162,7 +162,7 @@ TOC
   - inductive case (recursive case)
 - tail recursion
 - tail call optimization
-- primitive recursive functions (can express using ˙foldr˙)
+- primitive recursive functions (can be expressed with ˙foldr˙)
 - mutual recursion
 
 ### Fold
@@ -193,8 +193,7 @@ TOC
 
 ### Anonymous functions
 
-- currying
-- ...
+See [Lambda calculus](lambda-calculus.md)
 
 ### Infix notation
 
@@ -273,6 +272,7 @@ TOC
 - type definition
 - type parameter
 - type variable
+- abstract type (hidden value constructors)
 
 ### Algebraic Data Types
 
