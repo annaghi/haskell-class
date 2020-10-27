@@ -1,6 +1,9 @@
 .stack-work/
 *~
 
+dist-newstyle/
+cabal.project.local
+
 .idea
 .vscode
 .editorconfig
