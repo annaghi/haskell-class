@@ -31,6 +31,7 @@ library
       OBE.P024
       OBE.P025
       OBE.P036
+      OBE.P041
       HW01.CreditCardValidation
       HW01.TowerOfHanoi
       HW03.Golf
@@ -50,6 +51,7 @@ library
     , containers
     , text-latin1
     , lens
+    , optics
   default-language: Haskell2010
 
 executable haskell-class-exe
@@ -77,6 +79,7 @@ test-suite haskell-class-test
       RWH.Test
       OBE.P025Test
       OBE.P036Test
+      OBE.P041Test
       OBE.Test
       HW03.Test
       HW03.SkipsTest
@@ -101,4 +104,5 @@ test-suite haskell-class-test
     , split
     , hspec-expectations
     , lens
+    , optics
   default-language: Haskell2010
