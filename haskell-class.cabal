@@ -32,6 +32,7 @@ library
       OBE.P025
       OBE.P036
       OBE.P041
+      OBE.P045
       HW01.CreditCardValidation
       HW01.TowerOfHanoi
       HW03.Golf
@@ -80,6 +81,7 @@ test-suite haskell-class-test
       OBE.P025Test
       OBE.P036Test
       OBE.P041Test
+      OBE.P045Test
       OBE.Test
       HW03.Test
       HW03.SkipsTest
