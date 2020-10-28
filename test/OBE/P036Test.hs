@@ -17,7 +17,7 @@ tests =
         [ testGroup "Exercise 6: builder"
             [ testProperty "Law: set-get" prop_set_get
             , testProperty "Law: get-set" prop_get_set
-            , testProperty "Law: set-set" prop_set_set       
+            , testProperty "Law: set-set" prop_set_set
             ]
         ]
 

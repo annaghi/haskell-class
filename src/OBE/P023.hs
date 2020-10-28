@@ -20,12 +20,11 @@ type Potion =
     String
 
 
-data Inventory = 
-    Inventory
-        { _wand :: Wand
-        , _book :: Book
-        , _potions :: [Potion]
-        }
+data Inventory = Inventory
+    { _wand :: Wand
+    , _book :: Book
+    , _potions :: [Potion]
+    }
     deriving (Show)
 
 

@@ -12,13 +12,11 @@ import Control.Lens (Lens', lens)
 import Control.Lens.Combinators (makeLenses)
 
 
-data Builder =
-    Builder
-        { _context :: [String]
-        , _build :: [String] -> String
-        , _destroy :: String -> [String]
-        }
-
+data Builder = Builder
+    { _context :: [String]
+    , _build :: [String] -> String
+    , _destroy :: String -> [String]
+    }
 makeLenses ''Builder
 
 instance Show Builder
