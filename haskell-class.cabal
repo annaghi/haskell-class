@@ -33,6 +33,7 @@ library
       OBE.P036
       OBE.P041
       OBE.P045
+      OBE.P062
       HW01.CreditCardValidation
       HW01.TowerOfHanoi
       HW03.Golf
@@ -73,16 +74,17 @@ test-suite haskell-class-test
   main-is: Spec.hs
   other-modules:
       Paths_haskell_class
+      RWH.Test
       RWH.P070Test
       RWH.P084Test
       RWH.P097Test
       RWH.P098Test
-      RWH.Test
+      OBE.Test
       OBE.P025Test
       OBE.P036Test
       OBE.P041Test
       OBE.P045Test
-      OBE.Test
+      OBE.P062Test
       HW03.Test
       HW03.SkipsTest
       HW03.LocalMaximaTest
