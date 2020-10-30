@@ -24,10 +24,8 @@ asInt_fold_2 ls@(x:xs)
 
 
 asInt_fold_3 :: String -> Int
-asInt_fold_3 "" =
-    raiseError
-asInt_fold_3 "-" =
-    raiseError
+asInt_fold_3  "" = raiseError
+asInt_fold_3 "-" = raiseError
 asInt_fold_3 ls@(x:xs)
     | (x /= '-' && (not . isDigit) x) || any (not . isDigit) xs =
         raiseError
@@ -48,10 +46,8 @@ type ErrorMessage =
 
 
 asInt_either :: String -> Either ErrorMessage Int
-asInt_either "" =
-    Left "empty string"
-asInt_either "-" =
-    Left "the string is just a minus sign"
+asInt_either  "" = Left "empty string"
+asInt_either "-" = Left "the string is just a minus sign"
 asInt_either ls@(x:xs)
     | (x /= '-' && (not . isDigit) x) || any (not . isDigit) xs =
         Left "the string contains non-digits"

@@ -17,6 +17,7 @@ data Builder = Builder
     , _build :: [String] -> String
     , _destroy :: String -> [String]
     }
+
 makeLenses ''Builder
 
 instance Show Builder

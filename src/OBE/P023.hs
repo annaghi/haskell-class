@@ -28,45 +28,40 @@ data Inventory = Inventory
     deriving (Show)
 
 
-getWand :: Inventory -> Wand
-getWand =
-    _wand
-
-
-setWand :: Inventory -> Wand -> Inventory
-setWand inventory newWand =
-    inventory { _wand = newWand }
-
-
 wand :: Lens' Inventory Wand
 wand =
     lens getWand setWand
+    where
+        getWand :: Inventory -> Wand
+        getWand =
+            _wand
 
-
-getBook :: Inventory -> Book
-getBook =
-    _book
-
-
-setBook :: Inventory -> Book -> Inventory
-setBook inventory newBook =
-    inventory { _book = newBook }
+        setWand :: Inventory -> Wand -> Inventory
+        setWand inventory newWand =
+            inventory { _wand = newWand }
 
 
 book :: Lens' Inventory Book
 book =
     lens getBook setBook
+    where
+        getBook :: Inventory -> Book
+        getBook =
+            _book
 
-
-getPotions :: Inventory -> [Potion]
-getPotions =
-    _potions
-
-
-setPotions :: Inventory -> [Potion] -> Inventory
-setPotions inventory newPotions =
-    inventory { _potions = newPotions }
+        setBook :: Inventory -> Book -> Inventory
+        setBook inventory newBook =
+            inventory { _book = newBook }
 
 
 potions :: Lens' Inventory [Potion]
-potions = lens getPotions setPotions
+potions =
+    lens getPotions setPotions
+    where
+        getPotions :: Inventory -> [Potion]
+        getPotions =
+            _potions
+
+        setPotions :: Inventory -> [Potion] -> Inventory
+        setPotions inventory newPotions =
+            inventory { _potions = newPotions }

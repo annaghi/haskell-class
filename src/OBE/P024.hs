@@ -14,4 +14,5 @@ data Pet = Pet
     , _petType :: String
     }
     deriving (Show)
+
 makeLenses ''Pet

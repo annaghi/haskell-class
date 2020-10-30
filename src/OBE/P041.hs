@@ -19,7 +19,9 @@ data User = User
     , _lastName :: String
     -- , _username :: String
     , _email :: String
-    } deriving (Show, Eq)
+    }
+    deriving (Show, Eq)
+
 makeLenses ''User
 
 
@@ -41,6 +43,5 @@ fullName =
             in
             set firstName firstN
             $ set lastName (trim lastN)
-            $ user               
+            $ user
         )
-            
