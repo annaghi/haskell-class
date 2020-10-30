@@ -143,7 +143,7 @@ TOC
     []    [x, y]    (x:xs)    (x, y, z)
   ```
 - nested pattern matching
-- as pattern `name@pattern` (does not allocate memory for 'name' again, but it do for 'pattern')
+- as pattern `name@pattern` (does not allocate memory for `name` again)
 - wild-card `_`
 
 ### Conditionals
@@ -162,13 +162,13 @@ TOC
   - inductive case (recursive case)
 - tail recursion
 - tail call optimization
-- primitive recursive functions (can be expressed with ˙foldr˙)
+- primitive recursive functions (can be expressed with `foldr`)
 - mutual recursion
 
 ### Fold
 
 - `foldr`, `foldl'`
-- universal property (primitive recursive function ⟺ foldr)
+- universal property (primitive recursive function ⟺ `foldr`)
   ```haskell
   g []     = z
   g (x:xs) = f x (g xs)   ⟺   g = foldr f z
@@ -200,6 +200,7 @@ See [Lambda calculus](lambda-calculus.md)
 - infix function
 - infix value constructor
 - defined as infix can be used as prefix
+- fixity
 - section an infix function
   ```haskell
   (? y) == (\x -> x ? y)
