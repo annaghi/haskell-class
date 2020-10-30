@@ -33,7 +33,7 @@ library
       OBE.P036
       OBE.P041
       OBE.P045
-      OBE.P062
+      OBE.P073
       HW01.CreditCardValidation
       HW01.TowerOfHanoi
       HW03.Golf
@@ -54,6 +54,8 @@ library
     , text-latin1
     , lens
     , optics
+    , optics-extra
+    , mtl
   default-language: Haskell2010
 
 executable haskell-class-exe
@@ -84,7 +86,7 @@ test-suite haskell-class-test
       OBE.P036Test
       OBE.P041Test
       OBE.P045Test
-      OBE.P062Test
+      OBE.P073Test
       HW03.Test
       HW03.SkipsTest
       HW03.LocalMaximaTest

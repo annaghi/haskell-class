@@ -1,6 +1,8 @@
-module OBE.P062Test (tests) where
+module OBE.P073Test (tests) where
 
 import           Test.Tasty
+import           Test.Tasty.HUnit
+import           Utils ((|>))
 import           Test.Tasty.Hedgehog
 import           Hedgehog
 import qualified Hedgehog.Gen as Gen
@@ -11,16 +13,30 @@ import Optics.Getter (view)
 import Optics.Setter (set)
 import Optics.Optic ((%))
 
-import qualified OBE.P062 as EE
+import qualified OBE.P073 as EE
 
 
 tests :: TestTree
 tests =
-    testGroup "Page 62"
-        [ testGroup "Kingdom with functions"
+    testGroup "Page 73"
+        [ testGroup "when composing lens"
             [ testProperty "Law: set-get" (prop_set_get (EE.army % EE.archers))
             , testProperty "Law: get-set" (prop_get_set (EE.army % EE.archers))
             , testProperty "Law: set-set" (prop_set_set (EE.army % EE.archers))
+            ]
+        , testGroup "composing lens using functions"
+            [ testCase "should be the same as using operators, goalA" $
+                (EE.goalA_Fn EE.duloc)
+                    |> assertEqual "" (EE.goalA_Op EE.duloc)
+            , testCase "should be the same as using operators, goalB" $
+                (EE.goalB_Fn EE.duloc)
+                    |> assertEqual "" (EE.goalB_Op EE.duloc)
+            , testCase "should be the same as using operators, goalC" $
+                (EE.goalC_Fn EE.duloc)
+                    |> assertEqual "" (EE.goalC_Op EE.duloc)
+            , testCase "should be the same as using state operators, goalC" $
+                (EE.goalC_Fn EE.duloc)
+                    |> assertEqual "" (EE.goalC_Op_State EE.duloc)
             ]
         ]
 
