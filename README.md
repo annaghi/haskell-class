@@ -1,6 +1,6 @@
 # Haskell Class
 
-## Running the project
+### Running the project
 
 ```sh
 stack test
@@ -8,15 +8,19 @@ stack ghci
 stack exec haskell-class-exe
 ```
 
-## Learning Material
+### Learning Material
 
-- https://www.seas.upenn.edu/~cis194/spring13/
-- http://learnyouahaskell.com/
-- http://book.realworldhaskell.org/
+| Book                         | Solutions       | Notes                           |
+| ---------------------------- | --------------- | ------------------------------- |
+| [Learn You a Haskell][lyh]   |                 | good dense introduction         |
+| [Real World Haskell][rwh]    | [RWH][rwh-sol]  | Chapter 5 today is about Optics |
+| [CIS-194][cis-194]           | [HWxx][cis-sol] | HW02 needs Parsers              |
+| [Optics package][optics]     |                 |                                 |
+| Optics by Example            | [OBE][obe-sol]  | very annoying book              |
+| [Category Theory][cat]       |                 |                                 |
+| and you will find more books |                 |                                 |
 
-* https://www.logicmatters.net/resources/pdfs/GentleIntro.pdf
-
-TOC
+### TOC
 
 - Functions
   - Expressions
@@ -344,3 +348,12 @@ See [Lambda calculus](lambda-calculus.md)
 * Monad `(>>=)` + Applicative
 
 ### Kinds
+
+[cis-194]: https://www.seas.upenn.edu/~cis194/spring13/
+[cis-sol]: https://github.com/annaghi/haskell-class/tree/master/src
+[rwh]: http://book.realworldhaskell.org/
+[rwh-sol]: https://github.com/annaghi/haskell-class/tree/master/src/RWH
+[lyh]: http://learnyouahaskell.com/
+[optics]: https://hackage.haskell.org/package/optics-0.3/docs/Optics.html
+[obe-sol]: https://github.com/annaghi/haskell-class/tree/master/src/OBE
+[cat]: https://www.logicmatters.net/resources/pdfs/GentleIntro.pdf
