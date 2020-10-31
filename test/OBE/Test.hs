@@ -1,6 +1,6 @@
 module OBE.Test (suite) where
 
-import Test.Tasty
+import Test.Tasty (TestTree, testGroup)
 
 import OBE.P025Test
 import OBE.P036Test

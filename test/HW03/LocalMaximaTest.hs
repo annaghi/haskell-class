@@ -1,7 +1,7 @@
 module HW03.LocalMaximaTest (tests) where
 
-import Test.Tasty
-import Test.Tasty.HUnit
+import Test.Tasty (TestTree, testGroup)
+import Test.Tasty.HUnit (assertEqual, testCase)
 import Utils ((|>))
 
 import qualified HW03.Golf as EE

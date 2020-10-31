@@ -1,6 +1,6 @@
 module HW04.Test (suite) where
 
-import Test.Tasty
+import Test.Tasty (TestTree, testGroup)
 
 import HW04.E1Test
 import HW04.E2Test

@@ -1,8 +1,8 @@
 module OBE.P025Test (tests) where
 
-import           Test.Tasty
-import           Test.Tasty.Hedgehog
-import           Hedgehog
+import Test.Tasty (TestTree, testGroup)
+import Test.Tasty.Hedgehog (testProperty)
+import Hedgehog (MonadGen, Property, forAll, property, (===))
 import qualified Hedgehog.Gen as Gen
 import qualified Hedgehog.Range as Range
 

@@ -2,11 +2,11 @@
 
 module RWH.P070Test (tests) where
 
-import           Test.Tasty
-import           Test.Tasty.HUnit
-import           Utils ((|>))
-import           Test.Tasty.Hedgehog
-import           Hedgehog
+import Test.Tasty (TestTree, testGroup)
+import Test.Tasty.HUnit (assertEqual, testCase)
+import Utils ((|>))
+import Test.Tasty.Hedgehog (testProperty)
+import Hedgehog (MonadGen, assert, forAll, property, (===))
 import qualified Hedgehog.Gen as Gen
 import qualified Hedgehog.Range as Range
 
@@ -67,8 +67,8 @@ tests =
                     let
                         count :: Num a => a
                         count = EE.count tree
-                    Hedgehog.assert $ EE.height tree <= count - 1
-                    Hedgehog.assert $ EE.height tree >= floor (logBase 2 count)
+                    assert $ EE.height tree <= count - 1
+                    assert $ EE.height tree >= floor (logBase 2 count)
             ]
         , testGroup "Exercise 10-11: direction"
             [ testCase "when turning left" $

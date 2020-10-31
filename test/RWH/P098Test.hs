@@ -1,8 +1,8 @@
 module RWH.P098Test (tests) where
 
-import           Test.Tasty
-import           Test.Tasty.Hedgehog
-import           Hedgehog
+import Test.Tasty (TestTree, testGroup)
+import Test.Tasty.Hedgehog (testProperty)
+import Hedgehog (MonadGen, assert, forAll, property, (===))
 import qualified Hedgehog.Gen as Gen
 import qualified Hedgehog.Range as Range
 
@@ -59,7 +59,7 @@ tests =
                 property $ do
                     xs <- forAll genString
                     if null xs then
-                        Hedgehog.assert $ EE.cycleFoldr xs == []
+                        assert $ EE.cycleFoldr xs == []
                     else
                         (take 10 $ EE.cycleFoldr xs) === (take 10 $ cycle xs)
             , testProperty "wordsFoldr" $

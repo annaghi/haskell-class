@@ -1,8 +1,8 @@
 module HW04.E4Test (tests) where
 
-import           Test.Tasty
-import           Test.Tasty.HUnit
-import           Utils ((|>))
+import Test.Tasty (TestTree, testGroup)
+import Test.Tasty.HUnit (assertEqual, testCase)
+import Utils ((|>))
 
 import qualified HW04.E4 as EE
 

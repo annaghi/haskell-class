@@ -1,12 +1,12 @@
 module RWH.P097Test (tests) where
 
-import           Test.Tasty
-import           Test.Tasty.HUnit
-import           Utils ((|>))
-import           Test.Hspec.Expectations (Selector, shouldThrow, errorCall)
-import           Control.Exception (ErrorCall(ErrorCall), evaluate)
-import           Test.Tasty.Hedgehog
-import           Hedgehog
+import Test.Tasty (TestTree, testGroup)
+import Test.Tasty.HUnit (assertEqual, testCase)
+import Utils ((|>))
+import Test.Hspec.Expectations (Selector, shouldThrow, errorCall)
+import Control.Exception (ErrorCall(ErrorCall), evaluate)
+import Test.Tasty.Hedgehog (testProperty)
+import Hedgehog (MonadGen, forAll, property, (===))
 import qualified Hedgehog.Gen as Gen
 import qualified Hedgehog.Range as Range
 

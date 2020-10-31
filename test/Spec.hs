@@ -1,4 +1,4 @@
-import Test.Tasty
+import Test.Tasty (defaultMain, testGroup)
 
 import RWH.Test
 import OBE.Test

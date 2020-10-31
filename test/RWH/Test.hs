@@ -1,6 +1,6 @@
 module RWH.Test (suite) where
 
-import Test.Tasty
+import Test.Tasty (TestTree, testGroup)
 
 import RWH.P070Test
 import RWH.P084Test

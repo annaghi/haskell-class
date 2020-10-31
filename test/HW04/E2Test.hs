@@ -1,8 +1,8 @@
 module HW04.E2Test (tests) where
 
-import           Test.Tasty
-import           Test.Tasty.Hedgehog
-import           Hedgehog
+import Test.Tasty (TestTree, testGroup)
+import Test.Tasty.Hedgehog (testProperty)
+import Hedgehog (MonadGen, assert, forAll, property)
 import qualified Hedgehog.Gen as Gen
 import qualified Hedgehog.Range as Range
 
@@ -15,14 +15,14 @@ tests =
         [ testProperty "balance factor should be less than or equal 1 (recursively)" $
             property $ do
                 list <- forAll genIntegrals
-                Hedgehog.assert $ (EE.balanced $ EE.foldTree list) == True
+                assert $ (EE.balanced $ EE.foldTree list) == True
         , testProperty "height should be result as log 2 n" $
             property $ do
                 list <- forAll genIntegrals
                 let
                     heightOfBinaryBalancedTree :: Integral a => [a] -> a
                     heightOfBinaryBalancedTree = floor . logBase 2 . fromIntegral . length
-                Hedgehog.assert $ (EE.height $ EE.foldTree list) == heightOfBinaryBalancedTree list
+                assert $ (EE.height $ EE.foldTree list) == heightOfBinaryBalancedTree list
         ]
 
 
