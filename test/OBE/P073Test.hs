@@ -1,10 +1,8 @@
 module OBE.P073Test (tests) where
 
-import           Test.Tasty
-import           Test.Tasty.HUnit
-import           Utils ((|>))
-import           Test.Tasty.Hedgehog
-import           Hedgehog
+import           Test.Tasty (TestTree, testGroup)
+import           Test.Tasty.Hedgehog (testProperty)
+import           Hedgehog (MonadGen, Property, forAll, property, (===))
 import qualified Hedgehog.Gen as Gen
 import qualified Hedgehog.Range as Range
 
@@ -19,24 +17,28 @@ import qualified OBE.P073 as EE
 tests :: TestTree
 tests =
     testGroup "Page 73"
-        [ testGroup "when composing lens"
+        [ testGroup "when composing lenses"
             [ testProperty "Law: set-get" (prop_set_get (EE.army % EE.archers))
             , testProperty "Law: get-set" (prop_get_set (EE.army % EE.archers))
             , testProperty "Law: set-set" (prop_set_set (EE.army % EE.archers))
             ]
-        , testGroup "composing lens using functions"
-            [ testCase "should be the same as using operators, goalA" $
-                (EE.goalA_Fn EE.duloc)
-                    |> assertEqual "" (EE.goalA_Op EE.duloc)
-            , testCase "should be the same as using operators, goalB" $
-                (EE.goalB_Fn EE.duloc)
-                    |> assertEqual "" (EE.goalB_Op EE.duloc)
-            , testCase "should be the same as using operators, goalC" $
-                (EE.goalC_Fn EE.duloc)
-                    |> assertEqual "" (EE.goalC_Op EE.duloc)
-            , testCase "should be the same as using state operators, goalC" $
-                (EE.goalC_Fn EE.duloc)
-                    |> assertEqual "" (EE.goalC_Op_State EE.duloc)
+        , testGroup "composing lenses using functions"
+            [ testProperty "should be the same as using operators, goalA" $
+                property $ do
+                    kingdom <- forAll genKingdom
+                    EE.goalA_Fn kingdom === EE.goalA_Op kingdom
+            , testProperty "should be the same as using operators, goalB" $
+                property $ do
+                    kingdom <- forAll genKingdom
+                    EE.goalB_Fn kingdom === EE.goalB_Op kingdom
+            , testProperty "should be the same as using operators, goalC" $
+                property $ do
+                    kingdom <- forAll genKingdom
+                    EE.goalC_Fn kingdom === EE.goalC_Op kingdom
+            , testProperty "should be the same as using state operators, goalC" $
+                property $ do
+                    kingdom <- forAll genKingdom
+                    EE.goalC_Fn kingdom === EE.goalC_Op_State kingdom
             ]
         ]
 
