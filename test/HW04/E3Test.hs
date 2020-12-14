@@ -22,7 +22,7 @@ tests =
                             False
                         else
                             (/= 0) $ n `mod` 2
-                EE.xor list === (helper $ length $ filter (== True) list)
+                EE.xor list === helper (length $ filter (== True) list)
         , testProperty "map'" $
             property $ do
                 list <- forAll genBools
@@ -30,7 +30,7 @@ tests =
         , testProperty "myFoldl" $
             property $ do
                 list <- forAll genBools
-                EE.myFoldl (\a e -> e : a) [] list === foldl (\a e -> e : a) [] list
+                EE.myFoldl (flip (:)) [] list === foldl (flip (:)) [] list
         ]
 
 

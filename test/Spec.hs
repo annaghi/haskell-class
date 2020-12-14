@@ -7,7 +7,7 @@ import HW04.Test
 
 
 main :: IO ()
-main = defaultMain $ testGroup "Tests" $
+main = defaultMain $ testGroup "Tests"
     [ RWH.Test.suite
     , OBE.Test.suite
     , testGroup "CIS-194"

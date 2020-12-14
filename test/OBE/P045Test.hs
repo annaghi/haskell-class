@@ -20,13 +20,13 @@ tests =
     testGroup "Page 45"
         [ testGroup "Exercise 1-2"
             [ testCase "when the limePrice - lemonPrice > 0.50" $
-                (view EE.lemonPrice $ set EE.limePrice 2 (EE.ProducePrices 1.50 1.48))
+                view EE.lemonPrice (set EE.limePrice 2 (EE.ProducePrices 1.50 1.48))
                     |> assertEqual "" 1.5
             , testCase "when the limePrice - lemonPrice < 0.50" $
-                (view EE.lemonPrice $ set EE.limePrice 1.8 (EE.ProducePrices 1.50 1.48))
+                view EE.lemonPrice (set EE.limePrice 1.8 (EE.ProducePrices 1.50 1.48))
                     |> assertEqual "" 1.48
             , testCase "when the limePrice < 0" $
-                (view EE.lemonPrice $ set EE.limePrice (-1) (EE.ProducePrices 1.50 1.48))
+                view EE.lemonPrice (set EE.limePrice (-1) (EE.ProducePrices 1.50 1.48))
                     |> assertEqual "" 0.5
             -- All laws are failing
             -- , testProperty "Law: set-get" (prop_set_get EE.limePrice)

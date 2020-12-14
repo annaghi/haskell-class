@@ -75,4 +75,4 @@ genText =
 
 
 compress []     = []
-compress (x:xs) = x : (compress $ dropWhile (== x) xs)
+compress (x:xs) = x : compress (dropWhile (== x) xs)

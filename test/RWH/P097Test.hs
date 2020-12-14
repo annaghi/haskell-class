@@ -23,7 +23,7 @@ tests =
                 EE.asInt_fold_1 "0"
                     |> assertEqual "" 0
             , testCase "when the string is maxBound" $
-                (EE.asInt_fold_1 $ show (maxBound :: Int))
+                EE.asInt_fold_1 (show (maxBound :: Int))
                     |> assertEqual "" (maxBound :: Int)
             , testProperty "when the string is non-negative" $
                 property $ do
@@ -32,10 +32,10 @@ tests =
             ]
         , testGroup "Exercise 2"
             [ testCase "when the string is minBound" $
-                (EE.asInt_fold_2 $ show (minBound :: Int))
+                EE.asInt_fold_2 (show (minBound :: Int))
                     |> assertEqual "" (minBound :: Int)
             , testCase "when the string is maxBound" $
-                (EE.asInt_fold_2 $ show (maxBound :: Int))
+                EE.asInt_fold_2 (show (maxBound :: Int))
                     |> assertEqual "" (maxBound :: Int)
             , testCase "when the string is 0" $
                 EE.asInt_fold_2 "0"
@@ -77,10 +77,10 @@ tests =
                 EE.asInt_either "343.4"
                     |> assertEqual "" (Left "the string contains non-digits")
             , testCase "when the string is less than minBound" $
-                (EE.asInt_either $ addOneToLastDigit $ show (minBound :: Int))
+                EE.asInt_either (addOneToLastDigit (show (minBound :: Int)))
                     |> assertEqual "" (Left "the string is less than minBound")
             , testCase "when the string is greater than maxBound" $
-                (EE.asInt_either $ addOneToLastDigit $ show (maxBound :: Int))
+                EE.asInt_either (addOneToLastDigit (show (maxBound :: Int)))
                     |> assertEqual "" (Left "the string is greater than maxBound")
             , testProperty "when the string is valid number" $
                 property $ do

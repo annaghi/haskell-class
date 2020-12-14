@@ -23,7 +23,7 @@ tests =
     testGroup "Page 70"
         [ testGroup "Exercise 6: sortByLength"
             [ testCase "when the list is empty" $
-                (null $ EE.sortByLength [])
+                null (EE.sortByLength [])
                     |> assertEqual "" True
             , testCase "when the list has one item" $
                 EE.sortByLength [[1,2,3]]
@@ -38,7 +38,7 @@ tests =
             ]
         , testGroup "Exercise 7-8: intersperse"
             [ testCase "when the list is empty" $
-                (null $ EE.intersperse ',' [])
+                null (EE.intersperse ',' [])
                     |> assertEqual "" True
             , testCase "when the list has one item" $
                 EE.intersperse ',' ["one"]
@@ -91,7 +91,7 @@ tests =
                     a <- forAll genPoint
                     b <- forAll genPoint
                     c <- forAll genPoint
-                    EE.turn a b c === (EE.oppositeDirection $ EE.turn c b a)
+                    EE.turn a b c === EE.oppositeDirection (EE.turn c b a)
             ]
         , testGroup "Exercise 12: turns"
             [ testCase "when turning left than right" $
@@ -103,7 +103,7 @@ tests =
             , testProperty "should result as the same as the opposite direction of reflected through X axis" $
                 property $ do
                     points <- forAll genPoints
-                    EE.turns points === (map EE.oppositeDirection $ EE.turns $ EE.reflection1 points)
+                    EE.turns points === map EE.oppositeDirection (EE.turns (EE.reflection1 points))
             ]
         , testGroup "Exercise 13: convex hull"
             [ testCase "sortByAngleWithP0" $

@@ -15,14 +15,14 @@ tests =
         [ testProperty "balance factor should be less than or equal 1 (recursively)" $
             property $ do
                 list <- forAll genIntegrals
-                assert $ (EE.balanced $ EE.foldTree list) == True
+                assert $ EE.balanced (EE.foldTree list)
         , testProperty "height should be result as log 2 n" $
             property $ do
                 list <- forAll genIntegrals
                 let
                     heightOfBinaryBalancedTree :: Integral a => [a] -> a
                     heightOfBinaryBalancedTree = floor . logBase 2 . fromIntegral . length
-                assert $ (EE.height $ EE.foldTree list) == heightOfBinaryBalancedTree list
+                assert $ EE.height (EE.foldTree list) == heightOfBinaryBalancedTree list
         ]
 
 

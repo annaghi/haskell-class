@@ -6,7 +6,7 @@ import Hedgehog (MonadGen, assert, forAll, property, (===))
 import qualified Hedgehog.Gen as Gen
 import qualified Hedgehog.Range as Range
 
-import Data.List (groupBy)
+import Data.List (group)
 
 import qualified RWH.P098 as EE
 
@@ -34,34 +34,34 @@ tests =
             [ testProperty "groupByRecursive" $
                 property $ do
                     xs <- forAll genString
-                    EE.groupByRecursive (==) xs === groupBy (==) xs
+                    EE.groupByRecursive (==) xs === group xs
             ]
         , testGroup "Exercise 9"
             [ testProperty "groupByFoldr" $
                 property $ do
                     xs <- forAll genString
-                    EE.groupByFoldr (==) xs === groupBy (==) xs
+                    EE.groupByFoldr (==) xs === group xs
             , testProperty "groupByFoldr2" $
                 property $ do
                     xs <- forAll genString
-                    EE.groupByFoldr2 (==) xs === groupBy (==) xs
+                    EE.groupByFoldr2 (==) xs === group xs
             , testProperty "groupByFoldl" $
                 property $ do
                     xs <- forAll genString
-                    EE.groupByFoldl (==) xs === groupBy (==) xs
+                    EE.groupByFoldl (==) xs === group xs
             ]
         , testGroup "Exercise 10"
             [ testProperty "anyFoldr" $
                 property $ do
                     xs <- forAll genString
-                    EE.anyFoldr (== 'a') xs === any (== 'a') xs
+                    EE.anyFoldr (== 'a') xs === elem 'a' xs
             , testProperty "cycleFoldr" $
                 property $ do
                     xs <- forAll genString
                     if null xs then
-                        assert $ EE.cycleFoldr xs == []
+                        assert $ null (EE.cycleFoldr xs)
                     else
-                        (take 10 $ EE.cycleFoldr xs) === (take 10 $ cycle xs)
+                        take 10 (EE.cycleFoldr xs) === take 10 (cycle xs)
             , testProperty "wordsFoldr" $
                 property $ do
                     xs <- forAll genString
