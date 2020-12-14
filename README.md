@@ -10,15 +10,16 @@ stack exec haskell-class-exe
 
 ### Learning Material
 
-| Book                         | Solutions       | Notes                           |
-| ---------------------------- | --------------- | ------------------------------- |
-| [Learn You a Haskell][lyh]   |                 | good dense introduction         |
-| [Real World Haskell][rwh]    | [RWH][rwh-sol]  | Chapter 5 today is about Optics |
-| [CIS-194][cis-194]           | [HWxx][cis-sol] | HW02 needs Parsers              |
-| [Optics package][optics]     |                 |                                 |
-| Optics by Example            | [OBE][obe-sol]  | very annoying book              |
-| [Category Theory][cat]       |                 |                                 |
-| and you will find more books |                 |                                 |
+| Book                       | Solutions       | Notes                           |
+| -------------------------- | --------------- | ------------------------------- |
+| [Learn You a Haskell][lyh] |                 | good dense introduction         |
+| [Real World Haskell][rwh]  | [RWH][rwh-sol]  | Chapter 5 today is about Optics |
+| [CIS-194][cis-194]         | [HWxx][cis-sol] | HW02 needs Parsers              |
+| [Optics package][optics]   |                 |                                 |
+| Optics by Example          | [OBE][obe-sol]  | very annoying book              |
+| [Category Theory][cat]     |                 |                                 |
+
+and you will find more books
 
 ### TOC
 
@@ -343,8 +344,8 @@ See [Lambda calculus](lambda-calculus.md)
 * Functor `fmap`
 * Foldable `foldr`
 * Traversable `traverse` + Functor + Foldable
-* Applicative `pure` `liftA2` + Functor
-* Alternative `empty` `<|>` + Applicative
+* Applicative `pure` + (`<*>` or `liftA2`) + Functor
+* Alternative `empty` + `<|>` + Applicative
 * Monad `(>>=)` + Applicative
 
 ### Kinds

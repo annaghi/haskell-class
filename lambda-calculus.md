@@ -20,9 +20,9 @@ Turing complete ( ≡ computable functions ≡ partial recursive functions)
   - left-associative
   - higher precedence
   - application (or if `s` is an abstraction then function application)
-  - `t` is the actual parameter of `s` function
   - `s` is called function, operator, rator
   - `t` is called actual parameter, operand, rand
+  - `t` is the actual parameter of the function `s`
 
 ### Variables
 
