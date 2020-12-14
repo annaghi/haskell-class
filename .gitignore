@@ -7,3 +7,5 @@ cabal.project.local
 .idea
 .vscode
 .editorconfig
+
+NOTES.md
